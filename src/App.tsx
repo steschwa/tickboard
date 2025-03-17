@@ -1,3 +1,5 @@
+import { Header } from "./components/header/Header"
+
 export function App() {
-    return null
+    return <Header />
 }
