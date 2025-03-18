@@ -1,0 +1,4 @@
+export type Halle =
+    | "BLOC_HUETTE_HAUPTHALLE"
+    | "BLOC_HUETTE_AUSSENBEREICH"
+    | "BLOC_HUETTE_NEUEHALLE"

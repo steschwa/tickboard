@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { Drawer } from "components/drawer/Drawer"
 import { useAtom } from "jotai"
 import { formatHalle } from "lib/formatting/halle"
-import type { Halle } from "lib/types"
+import type { Halle } from "lib/halle"
 import { CircleCheckIcon } from "lucide-react"
 import { halleAtom } from "stores/halle"
 
