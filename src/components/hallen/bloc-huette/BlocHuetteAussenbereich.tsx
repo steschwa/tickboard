@@ -1,4 +1,6 @@
-export function Aussenhalle(props: React.ComponentPropsWithoutRef<"svg">) {
+export function BlocHuetteAussenbereich(
+    props: React.ComponentPropsWithoutRef<"svg">,
+) {
     return (
         <svg
             {...props}
