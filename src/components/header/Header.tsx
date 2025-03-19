@@ -1,8 +1,8 @@
-import { HallenOverviewDrawer } from "components/hallen-overview-drawer/HallenOverviewDrawer"
+import { HallenOverviewDrawer } from "@/components/hallen-overview-drawer/HallenOverviewDrawer"
+import { formatHalle } from "@/lib/formatting/halle"
+import { halleAtom } from "@/stores/halle"
 import { useAtomValue } from "jotai"
-import { formatHalle } from "lib/formatting/halle"
 import { MenuIcon } from "lucide-react"
-import { halleAtom } from "stores/halle"
 
 export function Header() {
     const halle = useAtomValue(halleAtom)

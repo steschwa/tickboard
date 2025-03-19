@@ -1,10 +1,10 @@
+import { Drawer } from "@/components/drawer/Drawer"
+import { formatHalle } from "@/lib/formatting/halle"
+import type { Halle } from "@/lib/halle"
+import { halleAtom } from "@/stores/halle"
 import clsx from "clsx"
-import { Drawer } from "components/drawer/Drawer"
 import { useAtom } from "jotai"
-import { formatHalle } from "lib/formatting/halle"
-import type { Halle } from "lib/halle"
 import { CircleCheckIcon } from "lucide-react"
-import { halleAtom } from "stores/halle"
 
 type HallenOverviewDrawerProps = {
     children: React.ReactNode

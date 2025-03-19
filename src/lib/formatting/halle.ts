@@ -1,4 +1,4 @@
-import type { Halle } from "lib/types"
+import type { Halle } from "@/lib/halle"
 
 export function formatHalle(halle: Halle): string {
     switch (halle) {

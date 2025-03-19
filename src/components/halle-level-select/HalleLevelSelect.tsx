@@ -1,17 +1,17 @@
-import clsx from "clsx"
-import { Select } from "components/select/Select"
-import { useSetAtom } from "jotai"
-import { useAtomValue } from "jotai"
+import { Select } from "@/components/select/Select"
 import {
     type BlocHuetteLevel,
     type HalleLevel,
     getLevelsByHalle,
-} from "lib/halle-level"
-import { halleAtom } from "stores/halle"
+} from "@/lib/halle-level"
+import { halleAtom } from "@/stores/halle"
 import {
     readOnlyHalleLevelAtom,
     writeOnlyHalleLevelAtom,
-} from "stores/halle-level"
+} from "@/stores/halle-level"
+import clsx from "clsx"
+import { useSetAtom } from "jotai"
+import { useAtomValue } from "jotai"
 
 export function HalleLevelSelect() {
     const halle = useAtomValue(halleAtom)

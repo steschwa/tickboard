@@ -1,4 +1,4 @@
-import { HalleLevelSelect } from "components/halle-level-select/HalleLevelSelect"
+import { HalleLevelSelect } from "@/components/halle-level-select/HalleLevelSelect"
 import { SettingsIcon } from "lucide-react"
 
 export function Toolbar() {

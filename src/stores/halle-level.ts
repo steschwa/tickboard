@@ -1,10 +1,10 @@
-import { atom } from "jotai"
-import { atomWithDefault } from "jotai/utils"
 import {
     type HalleLevel,
     getDefaultLevelByHalle,
     getLevelsByHalle,
-} from "lib/halle-level"
+} from "@/lib/halle-level"
+import { atom } from "jotai"
+import { atomWithDefault } from "jotai/utils"
 import { halleAtom } from "./halle"
 
 const _halleLevelAtom = atomWithDefault(get => {

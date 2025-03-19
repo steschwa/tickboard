@@ -1,6 +1,6 @@
+import type { Halle } from "@/lib/halle"
+import { getDefaultLevelByHalle, getLevelsByHalle } from "@/lib/halle-level"
 import { atom } from "jotai"
-import type { Halle } from "lib/halle"
-import { getDefaultLevelByHalle, getLevelsByHalle } from "lib/halle-level"
 import { readOnlyHalleLevelAtom, writeOnlyHalleLevelAtom } from "./halle-level"
 
 const _halleAtom = atom<Halle>("BLOC_HUETTE_HAUPTHALLE")

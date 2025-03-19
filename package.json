@@ -8,7 +8,7 @@
         "build": "typecheck && vite build",
         "format": "biome format --write",
         "lint": "biome lint --fix",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit --project tsconfig.app.json"
     },
     "dependencies": {
         "@base-ui-components/react": "^1.0.0-alpha.6",
