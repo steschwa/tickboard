@@ -103,6 +103,8 @@ export function BlocHuetteAussenbereich(
                 strokeDashoffset={0}
                 d="M 55 1074 L 216.648743 1074 L 216.648743 869 L 55 869"
             />
+
+            {props.children}
         </svg>
     )
 }

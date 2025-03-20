@@ -130,6 +130,8 @@ export function BlocHuetteHaupthalle(
                 strokeWidth={10}
                 d="M 129.69873 312.30127 L 216.30127 362.30127 L 266.30127 275.69873 L 179.69873 225.69873 L 129.69873 312.30127 Z"
             />
+
+            {props.children}
         </svg>
     )
 }
