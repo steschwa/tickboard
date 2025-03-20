@@ -4,42 +4,20 @@ import { BlocHuetteAussenbereich } from "./components/hallen/bloc-huette/BlocHue
 import { BlocHuetteHaupthalle } from "./components/hallen/bloc-huette/BlocHuetteHaupthalle"
 import { BlocHuetteNeueHalle } from "./components/hallen/bloc-huette/BlocHuetteNeueHalle"
 import { Header } from "./components/header/Header"
+import { Marker } from "./components/marker/Marker"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { halleAtom } from "./stores/halle"
 import { readOnlyHalleLevelAtom } from "./stores/halle-level"
-import { markersStore } from "./stores/markers"
+import { markersAtom, readOnlyHalleLevelMarkers } from "./stores/markers"
 
 export function App() {
-    const halle = useAtomValue(halleAtom)
-    const halleLevel = useAtomValue(readOnlyHalleLevelAtom)
-
-    const setMarkers = useSetAtom(markersStore)
-
-    const handleAddMarker = (event: React.PointerEvent) => {
-        setMarkers(prev => [
-            ...prev,
-            {
-                id: new Date().toISOString(),
-                halle,
-                level: halleLevel,
-                x: event.nativeEvent.offsetX,
-                y: event.nativeEvent.offsetY,
-                status: null,
-            },
-        ])
-    }
-
     return (
         <div className="h-dvh flex flex-col">
             <Header />
             <Toolbar />
 
-            <div className="flex-1 p-4 flex justify-center items-center overflow-hidden">
-                <div
-                    className="contents [&>svg]:max-w-full [&>svg]:max-h-full"
-                    onPointerDown={handleAddMarker}>
-                    <ActiveHalle />
-                </div>
+            <div className="flex-1 p-4 flex justify-center items-center overflow-hidden relative">
+                <ActiveHalle />
             </div>
         </div>
     )
@@ -47,13 +25,55 @@ export function App() {
 
 function ActiveHalle() {
     const halle = useAtomValue(halleAtom)
+    const halleLevel = useAtomValue(readOnlyHalleLevelAtom)
+    const markers = useAtomValue(readOnlyHalleLevelMarkers)
 
+    const setMarkers = useSetAtom(markersAtom)
+
+    let Comp: React.ElementType<React.ComponentPropsWithoutRef<"svg">>
     switch (halle) {
         case "BLOC_HUETTE_HAUPTHALLE":
-            return <BlocHuetteHaupthalle />
+            Comp = BlocHuetteHaupthalle
+            break
         case "BLOC_HUETTE_AUSSENBEREICH":
-            return <BlocHuetteAussenbereich />
+            Comp = BlocHuetteAussenbereich
+            break
         case "BLOC_HUETTE_NEUEHALLE":
-            return <BlocHuetteNeueHalle />
+            Comp = BlocHuetteNeueHalle
+            break
     }
+
+    const handleAddMarker = (event: React.MouseEvent<SVGSVGElement>) => {
+        const svg = event.currentTarget
+
+        const matrix = svg.getScreenCTM()
+        if (!matrix) {
+            return
+        }
+
+        const pt = svg.createSVGPoint()
+        pt.x = event.clientX
+        pt.y = event.clientY
+        const transformedPoint = pt.matrixTransform(matrix.inverse())
+
+        setMarkers(prev => [
+            ...prev,
+            {
+                id: new Date().toISOString(),
+                halle,
+                level: halleLevel,
+                x: transformedPoint.x,
+                y: transformedPoint.y,
+                status: null,
+            },
+        ])
+    }
+
+    return (
+        <Comp onClick={handleAddMarker} className="max-w-full max-h-full">
+            {markers.map(marker => (
+                <Marker key={marker.id} marker={marker} />
+            ))}
+        </Comp>
+    )
 }
