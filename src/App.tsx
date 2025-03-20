@@ -12,8 +12,17 @@ export function App() {
             <Header />
             <Toolbar />
 
-            <div className="flex-1 p-2 flex justify-center items-center overflow-hidden">
-                <ActiveHalle />
+            <div className="flex-1 p-4 flex justify-center items-center overflow-hidden">
+                <div
+                    className="contents [&>svg]:max-w-full [&>svg]:max-h-full"
+                    onPointerDown={event => {
+                        console.log({
+                            x: event.nativeEvent.offsetX,
+                            y: event.nativeEvent.offsetY,
+                        })
+                    }}>
+                    <ActiveHalle />
+                </div>
             </div>
         </div>
     )
@@ -24,10 +33,10 @@ function ActiveHalle() {
 
     switch (halle) {
         case "BLOC_HUETTE_HAUPTHALLE":
-            return <BlocHuetteHaupthalle className="max-w-full max-h-full" />
+            return <BlocHuetteHaupthalle />
         case "BLOC_HUETTE_AUSSENBEREICH":
-            return <BlocHuetteAussenbereich className="max-w-full max-h-full" />
+            return <BlocHuetteAussenbereich />
         case "BLOC_HUETTE_NEUEHALLE":
-            return <BlocHuetteNeueHalle className="max-w-full max-h-full" />
+            return <BlocHuetteNeueHalle />
     }
 }
