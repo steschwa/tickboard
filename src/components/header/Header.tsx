@@ -1,7 +1,7 @@
 import type { Halle } from "@/lib/halle"
 import { halleAtom } from "@/stores/halle"
 import { useAtomValue } from "jotai"
-import { HouseIcon } from "lucide-react"
+import { MapPinnedIcon } from "lucide-react"
 import { HalleSelect } from "../halle-select/HalleSelect"
 
 export function Header() {
@@ -14,7 +14,7 @@ export function Header() {
             </h1>
 
             <HalleSelect>
-                <HouseIcon />
+                <MapPinnedIcon />
             </HalleSelect>
         </header>
     )
