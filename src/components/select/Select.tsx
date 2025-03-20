@@ -43,22 +43,37 @@ export function Select(props: SelectProps) {
 }
 
 type TriggerProps = {
-    placeholder: string
+    variant?: "default" | "icon"
+    placeholder?: string
     children?: React.ReactNode
 }
 function Trigger(props: TriggerProps) {
     const { value } = useContext(SelectContext)
 
+    if (props.variant === "icon") {
+        return (
+            <Dialog.Trigger className="text-gray-500 focus:outline-none p-1.5 rounded-full inline-flex items-center justify-center icon:size-5">
+                {props.children}
+            </Dialog.Trigger>
+        )
+    }
+
+    const showPlaceholder = value === undefined
+
     let renderedValue: React.ReactNode
-    if (value === undefined) {
-        renderedValue = props.placeholder
+    if (showPlaceholder) {
+        renderedValue = props.placeholder || ""
     } else {
         renderedValue = props.children ?? value
     }
 
     return (
         <Dialog.Trigger className="px-3 flex items-center gap-x-4 justify-between h-8 border border-gray-200 rounded-lg focus:outline-none">
-            <span className="text-gray-900 text-sm font-normal">
+            <span
+                className={clsx("text-sm font-normal", {
+                    "text-gray-500": showPlaceholder,
+                    "text-gray-900": !showPlaceholder,
+                })}>
                 {renderedValue}
             </span>
             <span>

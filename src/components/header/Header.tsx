@@ -1,8 +1,8 @@
-import { HallenOverviewDrawer } from "@/components/hallen-overview-drawer/HallenOverviewDrawer"
-import { formatHalle } from "@/lib/formatting/halle"
+import type { Halle } from "@/lib/halle"
 import { halleAtom } from "@/stores/halle"
 import { useAtomValue } from "jotai"
-import { MenuIcon } from "lucide-react"
+import { HouseIcon } from "lucide-react"
+import { HalleSelect } from "../halle-select/HalleSelect"
 
 export function Header() {
     const halle = useAtomValue(halleAtom)
@@ -13,9 +13,20 @@ export function Header() {
                 {formatHalle(halle)}
             </h1>
 
-            <HallenOverviewDrawer>
-                <MenuIcon className="size-6" />
-            </HallenOverviewDrawer>
+            <HalleSelect>
+                <HouseIcon />
+            </HalleSelect>
         </header>
     )
+}
+
+export function formatHalle(halle: Halle): string {
+    switch (halle) {
+        case "BLOC_HUETTE_HAUPTHALLE":
+            return "Bloc-Hütte: Haupthalle"
+        case "BLOC_HUETTE_AUSSENBEREICH":
+            return "Bloc-Hütte: Aussenbereich"
+        case "BLOC_HUETTE_NEUEHALLE":
+            return "Bloc-Hütte: Neue Halle"
+    }
 }

@@ -16,3 +16,9 @@
         display: none;
     }
 }
+
+@custom-variant icon {
+    & > svg {
+        @slot;
+    }
+}
