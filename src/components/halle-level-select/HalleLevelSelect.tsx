@@ -29,10 +29,12 @@ export function HalleLevelSelect() {
             <Select.Trigger placeholder="Kategorie auswählen">
                 <LevelValue level={halleLevel} />
             </Select.Trigger>
-            <Select.Content>
-                {Array.from(levels).map(level => (
-                    <LevelItem key={level} level={level} />
-                ))}
+            <Select.Content title="Kategorie auswählen">
+                <div className="flex flex-col gap-y-2">
+                    {Array.from(levels).map(level => (
+                        <LevelItem key={level} level={level} />
+                    ))}
+                </div>
             </Select.Content>
         </Select>
     )
@@ -62,9 +64,9 @@ type BlocHuetteItemProps = {
 function BlocHuetteItem(props: BlocHuetteItemProps) {
     return (
         <Select.Item value={props.level}>
-            <div className="flex items-center justify-between gap-x-2">
-                <span>{formatBlocHuetteLevelText(props.level)}</span>
+            <div className="flex items-center gap-x-2">
                 <BlocHuetteDot level={props.level} />
+                <span>{formatBlocHuetteLevelText(props.level)}</span>
             </div>
         </Select.Item>
     )
