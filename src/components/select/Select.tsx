@@ -27,7 +27,7 @@ type TriggerProps = {
 }
 function Trigger(props: TriggerProps) {
     return (
-        <SelectPrimitive.Trigger className="px-3 flex items-center gap-x-4 h-8 border border-gray-200 rounded-lg focus:outline-none">
+        <SelectPrimitive.Trigger className="px-3 flex items-center gap-x-4 justify-between h-8 border border-gray-200 rounded-lg focus:outline-none">
             <SelectPrimitive.Value
                 placeholder={props.placeholder}
                 className="text-gray-900 text-sm font-normal">
