@@ -101,6 +101,23 @@ function Content(props: ContentProps) {
     )
 }
 
+type ListProps = {
+    title?: React.ReactNode
+    children: React.ReactNode
+}
+function List(props: ListProps) {
+    return (
+        <div>
+            {props.title && (
+                <h4 className="mb-3 text-sm font-medium text-gray-900">
+                    {props.title}
+                </h4>
+            )}
+            <div className="flex flex-col gap-y-2">{props.children}</div>
+        </div>
+    )
+}
+
 type ItemProps = {
     value: string
     children: React.ReactNode
@@ -125,8 +142,9 @@ function Item(props: ItemProps) {
         <div
             onKeyDown={handleKeyDown}
             onClick={handleClick}
+            data-selected={selected ? "" : undefined}
             className={clsx(
-                "flex items-center p-3 rounded-xl border text-sm font-normal",
+                "group flex items-center py-3 px-4 rounded-xl border text-sm font-normal",
                 {
                     "bg-white text-gray-900 border-gray-100": !selected,
                     "bg-gray-800 text-white border-gray-900": selected,
@@ -144,4 +162,5 @@ function Item(props: ItemProps) {
 
 Select.Trigger = Trigger
 Select.Content = Content
+Select.List = List
 Select.Item = Item

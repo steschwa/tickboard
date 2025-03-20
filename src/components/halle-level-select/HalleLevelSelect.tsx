@@ -30,11 +30,11 @@ export function HalleLevelSelect() {
                 <LevelValue level={halleLevel} />
             </Select.Trigger>
             <Select.Content title="Kategorie auswählen">
-                <div className="flex flex-col gap-y-2">
+                <Select.List>
                     {Array.from(levels).map(level => (
                         <LevelItem key={level} level={level} />
                     ))}
-                </div>
+                </Select.List>
             </Select.Content>
         </Select>
     )
@@ -64,7 +64,7 @@ type BlocHuetteItemProps = {
 function BlocHuetteItem(props: BlocHuetteItemProps) {
     return (
         <Select.Item value={props.level}>
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-3">
                 <BlocHuetteDot level={props.level} />
                 <span>{formatBlocHuetteLevelText(props.level)}</span>
             </div>
@@ -118,7 +118,7 @@ function BlocHuetteDot(props: BlocHuetteDotProps) {
             classes = "bg-orange-400 border-orange-400"
             break
         case "BLOC_HUETTE_WEISS":
-            classes = "bg-white border-gray-100"
+            classes = "bg-white border-gray-300"
             break
         case "BLOC_HUETTE_BLAU":
             classes = "bg-blue-700 border-blue-700"
@@ -127,7 +127,8 @@ function BlocHuetteDot(props: BlocHuetteDotProps) {
             classes = "bg-red-500 border-red-500"
             break
         case "BLOC_HUETTE_SCHWARZ":
-            classes = "bg-gray-800 border-gray-800"
+            classes =
+                "bg-gray-800 border-gray-800 group-data-[selected]:border-gray-500"
             break
     }
 
