@@ -5,7 +5,7 @@ import { readOnlyHalleLevelAtom } from "./halle-level"
 
 export const markersAtom = atomWithStorage<Marker[]>("markers", [])
 
-export const readOnlyHalleLevelMarkers = atom(get => {
+export const readOnlyHalleLevelMarkersAtom = atom(get => {
     const level = get(readOnlyHalleLevelAtom)
     return get(markersAtom).filter(marker => {
         return marker.level === level

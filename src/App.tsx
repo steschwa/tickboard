@@ -8,7 +8,7 @@ import { Marker } from "./components/marker/Marker"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { halleAtom } from "./stores/halle"
 import { readOnlyHalleLevelAtom } from "./stores/halle-level"
-import { markersAtom, readOnlyHalleLevelMarkers } from "./stores/markers"
+import { markersAtom, readOnlyHalleLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
     return (
@@ -26,7 +26,7 @@ export function App() {
 function ActiveHalle() {
     const halle = useAtomValue(halleAtom)
     const halleLevel = useAtomValue(readOnlyHalleLevelAtom)
-    const markers = useAtomValue(readOnlyHalleLevelMarkers)
+    const markers = useAtomValue(readOnlyHalleLevelMarkersAtom)
 
     const setMarkers = useSetAtom(markersAtom)
 
@@ -70,9 +70,13 @@ function ActiveHalle() {
     }
 
     return (
-        <Comp onClick={handleAddMarker} className="max-w-full max-h-full">
-            {markers.map(marker => (
-                <Marker key={marker.id} marker={marker} />
+        <Comp
+            onClick={handleAddMarker}
+            className="max-w-full max-h-full overflow-visible">
+            {markers.map((marker, index) => (
+                <Marker key={marker.id} marker={marker}>
+                    {index + 1}
+                </Marker>
             ))}
         </Comp>
     )
