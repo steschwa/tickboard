@@ -27,7 +27,7 @@ type TriggerProps = {
 }
 function Trigger(props: TriggerProps) {
     return (
-        <SelectPrimitive.Trigger className="px-3 flex items-center gap-x-4 h-8 border border-gray-200 rounded-lg">
+        <SelectPrimitive.Trigger className="px-3 flex items-center gap-x-4 h-8 border border-gray-200 rounded-lg focus:outline-none">
             <SelectPrimitive.Value
                 placeholder={props.placeholder}
                 className="text-gray-900 text-sm font-normal">
@@ -68,7 +68,7 @@ function Item(props: ItemProps) {
     return (
         <SelectPrimitive.Item
             value={props.value}
-            className="px-2 py-1 grid grid-cols-[20px_1fr] items-center gap-x-2 min-w-(--anchor-width)">
+            className="px-2 py-1 grid grid-cols-[20px_1fr] items-center gap-x-2 min-w-(--anchor-width) select-none data-[highlighted]:bg-gray-100 rounded-md focus:outline-none">
             <SelectPrimitive.ItemIndicator
                 className={state => {
                     return clsx("col-start-1 text-gray-900", {
