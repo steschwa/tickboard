@@ -20,7 +20,7 @@ export function Header() {
     )
 }
 
-export function formatHalle(halle: Halle): string {
+function formatHalle(halle: Halle): string {
     switch (halle) {
         case "BLOC_HUETTE_HAUPTHALLE":
             return "Bloc-Hütte: Haupthalle"

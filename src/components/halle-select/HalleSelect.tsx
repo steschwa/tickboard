@@ -50,7 +50,7 @@ function HallenList(props: HallenListProps) {
     )
 }
 
-export function formatHalle(halle: Halle): string {
+function formatHalle(halle: Halle): string {
     switch (halle) {
         case "BLOC_HUETTE_HAUPTHALLE":
             return "Haupthalle"
