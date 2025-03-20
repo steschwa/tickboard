@@ -13,13 +13,13 @@ export function App() {
             <Toolbar />
 
             <div className="flex-1 p-2 flex justify-center items-center overflow-hidden">
-                <RenderedHalle />
+                <ActiveHalle />
             </div>
         </div>
     )
 }
 
-function RenderedHalle() {
+function ActiveHalle() {
     const halle = useAtomValue(halleAtom)
 
     switch (halle) {
