@@ -1,30 +1,30 @@
 import { Select } from "@/components/select/Select"
 import {
     type BlocHuetteLevel,
-    type HalleLevel,
-    getLevelsByHalle,
-} from "@/lib/halle-level"
-import { halleAtom } from "@/stores/halle"
+    type GymLevel,
+    getLevelsByBy,
+} from "@/lib/gym-level"
+import { gymAtom } from "@/stores/gym"
 import {
-    readOnlyHalleLevelAtom,
-    writeOnlyHalleLevelAtom,
-} from "@/stores/halle-level"
+    readOnlyGymLevelAtom,
+    writeOnlyGymLevelAtom,
+} from "@/stores/gym-level"
 import clsx from "clsx"
 import { useSetAtom } from "jotai"
 import { useAtomValue } from "jotai"
 
 export function HalleLevelSelect() {
-    const halle = useAtomValue(halleAtom)
-    const halleLevel = useAtomValue(readOnlyHalleLevelAtom)
-    const setHalleLevel = useSetAtom(writeOnlyHalleLevelAtom)
+    const halle = useAtomValue(gymAtom)
+    const halleLevel = useAtomValue(readOnlyGymLevelAtom)
+    const setHalleLevel = useSetAtom(writeOnlyGymLevelAtom)
 
-    const levels = getLevelsByHalle(halle)
+    const levels = getLevelsByBy(halle)
 
     return (
         <Select
             value={halleLevel}
             onValueChange={level => {
-                setHalleLevel(level as HalleLevel)
+                setHalleLevel(level as GymLevel)
             }}>
             <Select.Trigger placeholder="Kategorie auswählen">
                 <LevelValue level={halleLevel} />
@@ -41,7 +41,7 @@ export function HalleLevelSelect() {
 }
 
 type LevelItemProps = {
-    level: HalleLevel
+    level: GymLevel
 }
 function LevelItem(props: LevelItemProps) {
     switch (props.level) {
@@ -73,7 +73,7 @@ function BlocHuetteItem(props: BlocHuetteItemProps) {
 }
 
 type LevelValueProps = {
-    level: HalleLevel
+    level: GymLevel
 }
 function LevelValue(props: LevelValueProps) {
     switch (props.level) {

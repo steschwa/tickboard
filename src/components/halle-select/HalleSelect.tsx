@@ -1,5 +1,5 @@
-import type { Halle } from "@/lib/halle"
-import { halleAtom } from "@/stores/halle"
+import type { Gym } from "@/lib/gym"
+import { gymAtom } from "@/stores/gym"
 import { useAtom } from "jotai"
 import { Select } from "../select/Select"
 
@@ -7,13 +7,13 @@ type HalleSelectProps = {
     children: React.ReactNode
 }
 export function HalleSelect(props: HalleSelectProps) {
-    const [selectedHalle, setSelectedHalle] = useAtom(halleAtom)
+    const [selectedHalle, setSelectedHalle] = useAtom(gymAtom)
 
     return (
         <Select
             value={selectedHalle}
             onValueChange={halle => {
-                setSelectedHalle(halle as Halle)
+                setSelectedHalle(halle as Gym)
             }}>
             <Select.Trigger variant="icon">{props.children}</Select.Trigger>
             <Select.Content title="Halle auswählen">
@@ -32,7 +32,7 @@ export function HalleSelect(props: HalleSelectProps) {
 
 type HallenListProps = {
     title: React.ReactNode
-    hallen: Halle[]
+    hallen: Gym[]
 }
 function HallenList(props: HallenListProps) {
     if (props.hallen.length === 0) {
@@ -50,7 +50,7 @@ function HallenList(props: HallenListProps) {
     )
 }
 
-function formatHalle(halle: Halle): string {
+function formatHalle(halle: Gym): string {
     switch (halle) {
         case "BLOC_HUETTE_HAUPTHALLE":
             return "Haupthalle"

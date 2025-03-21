@@ -1,4 +1,4 @@
-export type Halle =
+export type Gym =
     | "BLOC_HUETTE_HAUPTHALLE"
     | "BLOC_HUETTE_AUSSENBEREICH"
     | "BLOC_HUETTE_NEUEHALLE"

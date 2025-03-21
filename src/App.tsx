@@ -6,9 +6,9 @@ import { BlocHuetteNeueHalle } from "./components/hallen/bloc-huette/BlocHuetteN
 import { Header } from "./components/header/Header"
 import { Marker } from "./components/marker/Marker"
 import { Toolbar } from "./components/toolbar/Toolbar"
-import { halleAtom } from "./stores/halle"
-import { readOnlyHalleLevelAtom } from "./stores/halle-level"
-import { markersAtom, readOnlyHalleLevelMarkersAtom } from "./stores/markers"
+import { gymAtom } from "./stores/gym"
+import { readOnlyGymLevelAtom } from "./stores/gym-level"
+import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
     return (
@@ -24,14 +24,14 @@ export function App() {
 }
 
 function ActiveHalle() {
-    const halle = useAtomValue(halleAtom)
-    const halleLevel = useAtomValue(readOnlyHalleLevelAtom)
-    const markers = useAtomValue(readOnlyHalleLevelMarkersAtom)
+    const gym = useAtomValue(gymAtom)
+    const gymLevel = useAtomValue(readOnlyGymLevelAtom)
+    const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
 
     const setMarkers = useSetAtom(markersAtom)
 
     let Comp: React.ElementType<React.ComponentPropsWithoutRef<"svg">>
-    switch (halle) {
+    switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
             Comp = BlocHuetteHaupthalle
             break
@@ -60,8 +60,8 @@ function ActiveHalle() {
             ...prev,
             {
                 id: new Date().toISOString(),
-                halle,
-                level: halleLevel,
+                gym,
+                level: gymLevel,
                 x: transformedPoint.x,
                 y: transformedPoint.y,
                 status: null,

@@ -1,6 +1,6 @@
-import type { Halle } from "./halle"
+import type { Gym } from "./gym"
 
-export type HalleLevel = BlocHuetteLevel
+export type GymLevel = BlocHuetteLevel
 
 export type BlocHuetteLevel =
     | "BLOC_HUETTE_GELB"
@@ -21,8 +21,8 @@ export const BLOC_HUETTE_LEVELS = new Set<BlocHuetteLevel>([
     "BLOC_HUETTE_SCHWARZ",
 ])
 
-export function getLevelsByHalle(halle: Halle): Set<HalleLevel> {
-    switch (halle) {
+export function getLevelsByBy(gym: Gym): Set<GymLevel> {
+    switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
         case "BLOC_HUETTE_AUSSENBEREICH":
         case "BLOC_HUETTE_NEUEHALLE":
@@ -30,8 +30,8 @@ export function getLevelsByHalle(halle: Halle): Set<HalleLevel> {
     }
 }
 
-export function getDefaultLevelByHalle(halle: Halle): HalleLevel {
-    switch (halle) {
+export function getDefaultLevelByGym(gym: Gym): GymLevel {
+    switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
         case "BLOC_HUETTE_AUSSENBEREICH":
         case "BLOC_HUETTE_NEUEHALLE":
