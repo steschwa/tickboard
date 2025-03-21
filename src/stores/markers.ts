@@ -2,7 +2,7 @@ import type { Marker } from "@/lib/marker"
 import { createLocalStorageKey } from "@/lib/storage"
 import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
-import { readOnlyGymLevelAtom } from "./gym-level"
+import { readOnlyGymLevelAtom } from "./gym"
 
 export const markersAtom = atomWithStorage<Marker[]>(
     createLocalStorageKey("markers", 1),

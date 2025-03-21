@@ -21,7 +21,7 @@ export const BLOC_HUETTE_LEVELS = new Set<BlocHuetteLevel>([
     "BLOC_HUETTE_SCHWARZ",
 ])
 
-export function getLevelsByBy(gym: Gym): Set<GymLevel> {
+export function getLevelsByGym(gym: Gym): Set<GymLevel> {
     switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
         case "BLOC_HUETTE_AUSSENBEREICH":

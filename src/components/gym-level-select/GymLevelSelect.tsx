@@ -2,10 +2,13 @@ import { Select } from "@/components/select/Select"
 import {
     type BlocHuetteLevel,
     type GymLevel,
-    getLevelsByBy,
+    getLevelsByGym,
 } from "@/lib/gym-level"
-import { gymAtom } from "@/stores/gym"
-import { readOnlyGymLevelAtom, writeOnlyGymLevelAtom } from "@/stores/gym-level"
+import {
+    gymAtom,
+    readOnlyGymLevelAtom,
+    writeOnlyGymLevelAtom,
+} from "@/stores/gym"
 import clsx from "clsx"
 import { useSetAtom } from "jotai"
 import { useAtomValue } from "jotai"
@@ -15,7 +18,7 @@ export function GymLevelSelect() {
     const gymLevel = useAtomValue(readOnlyGymLevelAtom)
     const setGymLevel = useSetAtom(writeOnlyGymLevelAtom)
 
-    const levels = getLevelsByBy(gym)
+    const levels = getLevelsByGym(gym)
 
     return (
         <Select

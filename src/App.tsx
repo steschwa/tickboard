@@ -6,8 +6,7 @@ import { BlocHuetteNeueHalle } from "./components/hallen/bloc-huette/BlocHuetteN
 import { Header } from "./components/header/Header"
 import { Marker } from "./components/marker/Marker"
 import { Toolbar } from "./components/toolbar/Toolbar"
-import { gymAtom } from "./stores/gym"
-import { readOnlyGymLevelAtom } from "./stores/gym-level"
+import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
