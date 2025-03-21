@@ -9,7 +9,10 @@ import { createLocalStorageKey } from "@/lib/storage"
 import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 
-const _gymAtom = atom<Gym>("BLOC_HUETTE_HAUPTHALLE")
+const _gymAtom = atomWithStorage<Gym>(
+    createLocalStorageKey("gym", 1),
+    "BLOC_HUETTE_HAUPTHALLE",
+)
 
 export const gymAtom = atom(
     get => get(_gymAtom),
