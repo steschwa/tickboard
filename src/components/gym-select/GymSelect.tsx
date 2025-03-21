@@ -3,23 +3,23 @@ import { gymAtom } from "@/stores/gym"
 import { useAtom } from "jotai"
 import { Select } from "../select/Select"
 
-type HalleSelectProps = {
+type GymSelectProps = {
     children: React.ReactNode
 }
-export function HalleSelect(props: HalleSelectProps) {
-    const [selectedHalle, setSelectedHalle] = useAtom(gymAtom)
+export function GymSelect(props: GymSelectProps) {
+    const [selectedGym, setSelectedGym] = useAtom(gymAtom)
 
     return (
         <Select
-            value={selectedHalle}
-            onValueChange={halle => {
-                setSelectedHalle(halle as Gym)
+            value={selectedGym}
+            onValueChange={gym => {
+                setSelectedGym(gym as Gym)
             }}>
             <Select.Trigger variant="icon">{props.children}</Select.Trigger>
             <Select.Content title="Halle auswählen">
-                <HallenList
+                <GymList
                     title="Bloc-Hütte"
-                    hallen={[
+                    gyms={[
                         "BLOC_HUETTE_HAUPTHALLE",
                         "BLOC_HUETTE_AUSSENBEREICH",
                         "BLOC_HUETTE_NEUEHALLE",
@@ -30,28 +30,28 @@ export function HalleSelect(props: HalleSelectProps) {
     )
 }
 
-type HallenListProps = {
+type GymListProps = {
     title: React.ReactNode
-    hallen: Gym[]
+    gyms: Gym[]
 }
-function HallenList(props: HallenListProps) {
-    if (props.hallen.length === 0) {
+function GymList(props: GymListProps) {
+    if (props.gyms.length === 0) {
         return null
     }
 
     return (
         <Select.List title={props.title}>
-            {props.hallen.map(halle => (
-                <Select.Item key={halle} value={halle}>
-                    {formatHalle(halle)}
+            {props.gyms.map(gym => (
+                <Select.Item key={gym} value={gym}>
+                    {formatGym(gym)}
                 </Select.Item>
             ))}
         </Select.List>
     )
 }
 
-function formatHalle(halle: Gym): string {
-    switch (halle) {
+function formatGym(gym: Gym): string {
+    switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
             return "Haupthalle"
         case "BLOC_HUETTE_AUSSENBEREICH":

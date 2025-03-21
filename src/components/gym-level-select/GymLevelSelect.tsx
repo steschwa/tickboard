@@ -5,29 +5,26 @@ import {
     getLevelsByBy,
 } from "@/lib/gym-level"
 import { gymAtom } from "@/stores/gym"
-import {
-    readOnlyGymLevelAtom,
-    writeOnlyGymLevelAtom,
-} from "@/stores/gym-level"
+import { readOnlyGymLevelAtom, writeOnlyGymLevelAtom } from "@/stores/gym-level"
 import clsx from "clsx"
 import { useSetAtom } from "jotai"
 import { useAtomValue } from "jotai"
 
-export function HalleLevelSelect() {
-    const halle = useAtomValue(gymAtom)
-    const halleLevel = useAtomValue(readOnlyGymLevelAtom)
-    const setHalleLevel = useSetAtom(writeOnlyGymLevelAtom)
+export function GymLevelSelect() {
+    const gym = useAtomValue(gymAtom)
+    const gymLevel = useAtomValue(readOnlyGymLevelAtom)
+    const setGymLevel = useSetAtom(writeOnlyGymLevelAtom)
 
-    const levels = getLevelsByBy(halle)
+    const levels = getLevelsByBy(gym)
 
     return (
         <Select
-            value={halleLevel}
+            value={gymLevel}
             onValueChange={level => {
-                setHalleLevel(level as GymLevel)
+                setGymLevel(level as GymLevel)
             }}>
             <Select.Trigger placeholder="Kategorie auswählen">
-                <LevelValue level={halleLevel} />
+                <LevelValue level={gymLevel} />
             </Select.Trigger>
             <Select.Content title="Kategorie auswählen">
                 <Select.List>

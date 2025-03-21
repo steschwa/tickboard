@@ -1,27 +1,27 @@
+import { GymSelect } from "@/components/gym-select/GymSelect"
 import type { Gym } from "@/lib/gym"
 import { gymAtom } from "@/stores/gym"
 import { useAtomValue } from "jotai"
 import { MapPinnedIcon } from "lucide-react"
-import { HalleSelect } from "../halle-select/HalleSelect"
 
 export function Header() {
-    const halle = useAtomValue(gymAtom)
+    const gym = useAtomValue(gymAtom)
 
     return (
         <header className="border-b border-gray-100 flex items-center justify-between px-4 py-2">
             <h1 className="text-gray-900 font-semibold text-base">
-                {formatHalle(halle)}
+                {formatGym(gym)}
             </h1>
 
-            <HalleSelect>
+            <GymSelect>
                 <MapPinnedIcon />
-            </HalleSelect>
+            </GymSelect>
         </header>
     )
 }
 
-function formatHalle(halle: Gym): string {
-    switch (halle) {
+function formatGym(gym: Gym): string {
+    switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
             return "Bloc-Hütte: Haupthalle"
         case "BLOC_HUETTE_AUSSENBEREICH":

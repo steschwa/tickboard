@@ -17,13 +17,13 @@ export function App() {
             <Toolbar />
 
             <div className="flex-1 p-4 flex justify-center items-center overflow-hidden relative">
-                <ActiveHalle />
+                <ActiveGym />
             </div>
         </div>
     )
 }
 
-function ActiveHalle() {
+function ActiveGym() {
     const gym = useAtomValue(gymAtom)
     const gymLevel = useAtomValue(readOnlyGymLevelAtom)
     const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
