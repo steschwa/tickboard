@@ -1,11 +1,13 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
+import { useState } from "react"
+import { GymMarker } from "./components/gym-marker/GymMarker"
 import { BlocHuetteAussenbereich } from "./components/hallen/bloc-huette/BlocHuetteAussenbereich"
 import { BlocHuetteHaupthalle } from "./components/hallen/bloc-huette/BlocHuetteHaupthalle"
 import { BlocHuetteNeueHalle } from "./components/hallen/bloc-huette/BlocHuetteNeueHalle"
 import { Header } from "./components/header/Header"
-import { Marker } from "./components/marker/Marker"
 import { Toolbar } from "./components/toolbar/Toolbar"
+import { type Marker, intersects } from "./lib/marker"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
@@ -28,6 +30,7 @@ function ActiveGym() {
     const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
 
     const setMarkers = useSetAtom(markersAtom)
+    const [selectedMarkerId, setSelectedMarkerId] = useState<Marker["id"]>()
 
     let Comp: React.ElementType<React.ComponentPropsWithoutRef<"svg">>
     switch (gym) {
@@ -42,7 +45,7 @@ function ActiveGym() {
             break
     }
 
-    const handleAddMarker = (event: React.MouseEvent<SVGSVGElement>) => {
+    const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         const svg = event.currentTarget
 
         const matrix = svg.getScreenCTM()
@@ -55,14 +58,30 @@ function ActiveGym() {
         pt.y = event.clientY
         const transformedPoint = pt.matrixTransform(matrix.inverse())
 
+        const markerAtPoint = markers.find(marker => {
+            return intersects(marker, transformedPoint)
+        })
+        if (markerAtPoint) {
+            setSelectedMarkerId(prev => {
+                const next = markerAtPoint.id
+                return prev === next ? undefined : next
+            })
+            return
+        }
+
+        addMarker(transformedPoint)
+        setSelectedMarkerId(undefined)
+    }
+
+    const addMarker = (atPoint: DOMPoint) => {
         setMarkers(prev => [
             ...prev,
             {
                 id: new Date().toISOString(),
                 gym,
                 level: gymLevel,
-                x: transformedPoint.x,
-                y: transformedPoint.y,
+                x: atPoint.x,
+                y: atPoint.y,
                 status: null,
             },
         ])
@@ -70,12 +89,15 @@ function ActiveGym() {
 
     return (
         <Comp
-            onClick={handleAddMarker}
+            onClick={handleClick}
             className="max-w-full max-h-full overflow-visible">
             {markers.map((marker, index) => (
-                <Marker key={marker.id} marker={marker}>
+                <GymMarker
+                    key={marker.id}
+                    marker={marker}
+                    selected={marker.id === selectedMarkerId}>
                     {index + 1}
-                </Marker>
+                </GymMarker>
             ))}
         </Comp>
     )
