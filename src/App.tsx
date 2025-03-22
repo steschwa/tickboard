@@ -10,6 +10,7 @@ import { Toolbar } from "./components/toolbar/Toolbar"
 import type { Marker } from "./lib/marker"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
+import { Dialog } from "./ui/dialog/Dialog"
 
 export function App() {
     return (
@@ -72,20 +73,52 @@ function ActiveGym() {
     }
 
     return (
-        <Comp
-            onClick={handleClick}
-            className="max-w-full max-h-full overflow-visible">
-            {markers.map((marker, index) => (
-                <GymMarker
-                    key={marker.id}
-                    marker={marker}
-                    selected={selectedMarkerId === marker.id}
-                    onSelect={() => {
-                        setSelectedMarkerId(marker.id)
-                    }}>
-                    {index + 1}
-                </GymMarker>
-            ))}
-        </Comp>
+        <>
+            <Comp
+                onClick={handleClick}
+                className="max-w-full max-h-full overflow-visible">
+                {markers.map((marker, index) => (
+                    <GymMarker
+                        key={marker.id}
+                        marker={marker}
+                        selected={selectedMarkerId === marker.id}
+                        onSelect={() => {
+                            setSelectedMarkerId(marker.id)
+                        }}>
+                        {index + 1}
+                    </GymMarker>
+                ))}
+            </Comp>
+
+            <Dialog
+                open={!!selectedMarkerId}
+                onOpenChange={open => {
+                    if (open) {
+                        return
+                    }
+
+                    setSelectedMarkerId(undefined)
+                }}>
+                <Dialog.Content title="Markierung">
+                    <div className="grid grid-cols-3 gap-2">
+                        <button
+                            type="button"
+                            className="size-8 inline-flex items-center justify-center rounded-xl">
+                            A
+                        </button>
+                        <button
+                            type="button"
+                            className="size-8 inline-flex items-center justify-center rounded-xl">
+                            B
+                        </button>
+                        <button
+                            type="button"
+                            className="size-8 inline-flex items-center justify-center rounded-xl">
+                            C
+                        </button>
+                    </div>
+                </Dialog.Content>
+            </Dialog>
+        </>
     )
 }
