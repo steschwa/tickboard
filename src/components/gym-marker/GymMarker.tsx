@@ -4,12 +4,34 @@ import clsx from "clsx"
 type GymMarkerProps = {
     marker: MarkerModel
     selected: boolean
+    onSelect: () => void
     children?: React.ReactNode
 }
 
 export function GymMarker(props: GymMarkerProps) {
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (!["Space", "Enter"].includes(event.code)) {
+            return
+        }
+
+        event.stopPropagation()
+        event.preventDefault()
+
+        props.onSelect()
+    }
+
+    const handleClick = (event: React.MouseEvent) => {
+        event.stopPropagation()
+
+        props.onSelect()
+    }
+
     return (
-        <g>
+        <g
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            onClick={handleClick}
+            className="focus:outline-none">
             <circle
                 cx={props.marker.x}
                 cy={props.marker.y}
@@ -24,8 +46,9 @@ export function GymMarker(props: GymMarkerProps) {
                 <circle
                     cx={props.marker.x}
                     cy={props.marker.y}
-                    r={GYM_MARKER_RADIUS + 5}
-                    strokeWidth={5}
+                    r={GYM_MARKER_RADIUS + 10}
+                    strokeWidth={7}
+                    strokeDasharray="12 4"
                     className={clsx(
                         "fill-transparent",
                         strokeClasses(props.marker),

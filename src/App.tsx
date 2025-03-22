@@ -7,7 +7,7 @@ import { BlocHuetteHaupthalle } from "./components/hallen/bloc-huette/BlocHuette
 import { BlocHuetteNeueHalle } from "./components/hallen/bloc-huette/BlocHuetteNeueHalle"
 import { Header } from "./components/header/Header"
 import { Toolbar } from "./components/toolbar/Toolbar"
-import { type Marker, intersects } from "./lib/marker"
+import type { Marker } from "./lib/marker"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
@@ -58,30 +58,14 @@ function ActiveGym() {
         pt.y = event.clientY
         const transformedPoint = pt.matrixTransform(matrix.inverse())
 
-        const markerAtPoint = markers.find(marker => {
-            return intersects(marker, transformedPoint)
-        })
-        if (markerAtPoint) {
-            setSelectedMarkerId(prev => {
-                const next = markerAtPoint.id
-                return prev === next ? undefined : next
-            })
-            return
-        }
-
-        addMarker(transformedPoint)
-        setSelectedMarkerId(undefined)
-    }
-
-    const addMarker = (atPoint: DOMPoint) => {
         setMarkers(prev => [
             ...prev,
             {
                 id: new Date().toISOString(),
                 gym,
                 level: gymLevel,
-                x: atPoint.x,
-                y: atPoint.y,
+                x: transformedPoint.x,
+                y: transformedPoint.y,
                 status: null,
             },
         ])
@@ -95,7 +79,10 @@ function ActiveGym() {
                 <GymMarker
                     key={marker.id}
                     marker={marker}
-                    selected={marker.id === selectedMarkerId}>
+                    selected={selectedMarkerId === marker.id}
+                    onSelect={() => {
+                        setSelectedMarkerId(marker.id)
+                    }}>
                     {index + 1}
                 </GymMarker>
             ))}
