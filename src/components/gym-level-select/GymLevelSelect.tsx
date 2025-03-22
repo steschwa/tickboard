@@ -1,4 +1,3 @@
-import { Select } from "@/components/select/Select"
 import {
     type BlocHuetteLevel,
     type GymLevel,
@@ -9,6 +8,7 @@ import {
     readOnlyGymLevelAtom,
     writeOnlyGymLevelAtom,
 } from "@/stores/gym"
+import { Select } from "@/ui/select/Select"
 import clsx from "clsx"
 import { useSetAtom } from "jotai"
 import { useAtomValue } from "jotai"

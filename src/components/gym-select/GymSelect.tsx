@@ -1,7 +1,7 @@
 import type { Gym } from "@/lib/gym"
 import { gymAtom } from "@/stores/gym"
+import { Select } from "@/ui/select/Select"
 import { useAtom } from "jotai"
-import { Select } from "../select/Select"
 
 type GymSelectProps = {
     children: React.ReactNode
