@@ -1,4 +1,4 @@
-import { Dialog } from "@base-ui-components/react"
+import { Dialog } from "@base-ui-components/react/dialog"
 import clsx from "clsx"
 import { ChevronsUpDownIcon, CircleCheckIcon, XIcon } from "lucide-react"
 import { createContext, useContext, useState } from "react"
