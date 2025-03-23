@@ -1,32 +1,28 @@
-import type { OpenState } from "@/lib/open-state"
 import { useState } from "react"
 
 type UseOpenStateReturn<TData> = {
-    state: OpenState<TData>
+    isOpen: boolean
+    data: TData | undefined
     open: (data: TData) => void
     close: () => void
 }
 
 export function useOpenState<TData = unknown>(): UseOpenStateReturn<TData> {
-    const [state, setState] = useState<OpenState<TData>>({
-        open: false,
-    })
+    const [isOpen, setIsOpen] = useState(false)
+    const [data, setData] = useState<TData>()
 
     const open = (data: TData) => {
-        setState({
-            open: true,
-            data,
-        })
+        setData(data)
+        setIsOpen(true)
     }
 
     const close = () => {
-        setState({
-            open: false,
-        })
+        setIsOpen(false)
     }
 
     return {
-        state,
+        isOpen,
+        data,
         open,
         close,
     }

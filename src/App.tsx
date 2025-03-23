@@ -11,6 +11,7 @@ import { BlocHuetteNeueHalle } from "./components/gyms/bloc-huette/BlocHuetteNeu
 import { Header } from "./components/header/Header"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
+import type { Gym } from "./lib/gym"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
@@ -33,20 +34,8 @@ function ActiveGym() {
     const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
 
     const setMarkers = useSetAtom(markersAtom)
-    const editMarkerOpenState = useOpenState<EditMarkerData>()
 
-    let Comp: React.ElementType<React.ComponentPropsWithoutRef<"svg">>
-    switch (gym) {
-        case "BLOC_HUETTE_HAUPTHALLE":
-            Comp = BlocHuetteHaupthalle
-            break
-        case "BLOC_HUETTE_AUSSENBEREICH":
-            Comp = BlocHuetteAussenbereich
-            break
-        case "BLOC_HUETTE_NEUEHALLE":
-            Comp = BlocHuetteNeueHalle
-            break
-    }
+    const editState = useOpenState<EditMarkerData>()
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         const svg = event.currentTarget
@@ -74,6 +63,8 @@ function ActiveGym() {
         ])
     }
 
+    const Comp = RENDERED_GYM[gym]
+
     return (
         <>
             <Comp
@@ -81,8 +72,7 @@ function ActiveGym() {
                 className="max-w-full max-h-full overflow-visible">
                 {markers.map((marker, index) => {
                     const selected =
-                        editMarkerOpenState.state.open &&
-                        editMarkerOpenState.state.data.id === marker.id
+                        editState.isOpen && editState.data?.id === marker.id
 
                     const label = `${index + 1}`
 
@@ -92,7 +82,7 @@ function ActiveGym() {
                             marker={marker}
                             selected={selected}
                             onSelect={() => {
-                                editMarkerOpenState.open({
+                                editState.open({
                                     id: marker.id,
                                     label,
                                 })
@@ -104,9 +94,19 @@ function ActiveGym() {
             </Comp>
 
             <EditMarkerDialog
-                state={editMarkerOpenState.state}
-                onClose={editMarkerOpenState.close}
+                open={editState.isOpen}
+                data={editState.data}
+                onClose={editState.close}
             />
         </>
     )
+}
+
+const RENDERED_GYM: Record<
+    Gym,
+    React.ElementType<React.ComponentPropsWithoutRef<"svg">>
+> = {
+    BLOC_HUETTE_HAUPTHALLE: BlocHuetteHaupthalle,
+    BLOC_HUETTE_AUSSENBEREICH: BlocHuetteAussenbereich,
+    BLOC_HUETTE_NEUEHALLE: BlocHuetteNeueHalle,
 }
