@@ -4,7 +4,7 @@
     "": {
       "name": "bouldermap",
       "dependencies": {
-        "@base-ui-components/react": "^1.0.0-alpha.6",
+        "@base-ui-components/react": "^1.0.0-alpha.7",
         "clsx": "^2.1.1",
         "jotai": "^2.12.2",
         "lucide-react": "^0.482.0",
@@ -65,7 +65,7 @@
 
     "@babel/types": ["@babel/types@7.26.10", "", { "dependencies": { "@babel/helper-string-parser": "^7.25.9", "@babel/helper-validator-identifier": "^7.25.9" } }, "sha512-emqcG3vHrpxUKTrxcblR36dcrcoRDvKmnL/dCL6ZsHaShW80qxCAcNhzQZrpeM765VzEos+xOi4s+r4IXzTwdQ=="],
 
-    "@base-ui-components/react": ["@base-ui-components/react@1.0.0-alpha.6", "", { "dependencies": { "@babel/runtime": "^7.26.7", "@floating-ui/react": "^0.27.3", "@floating-ui/utils": "^0.2.9", "@react-aria/overlays": "^3.25.0", "prop-types": "^15.8.1", "use-sync-external-store": "^1.4.0" }, "peerDependencies": { "@types/react": "^17 || ^18 || ^19", "react": "^17 || ^18 || ^19", "react-dom": "^17 || ^18 || ^19" }, "optionalPeers": ["@types/react"] }, "sha512-0Jkp8twk3z3TJNOTUyzrK1dPOF7w1/LH+TYksuZc8TyJzuJx8V2O15BgpMJczvFdSR2ncdN1WQxsTe2ayYJ6cw=="],
+    "@base-ui-components/react": ["@base-ui-components/react@1.0.0-alpha.7", "", { "dependencies": { "@babel/runtime": "^7.26.10", "@floating-ui/react": "^0.27.5", "@floating-ui/utils": "^0.2.9", "@react-aria/overlays": "^3.26.1", "prop-types": "^15.8.1", "use-sync-external-store": "^1.4.0" }, "peerDependencies": { "@types/react": "^17 || ^18 || ^19", "react": "^17 || ^18 || ^19", "react-dom": "^17 || ^18 || ^19" }, "optionalPeers": ["@types/react"] }, "sha512-M4MxUvwAfERYSMqrUmTSf4J5yHXXGHqXw5wE7WLz8eCIhFmVWog4j5hYRU6QZ0VhqlyVPhs9KqSnts+FFyPmew=="],
 
     "@biomejs/biome": ["@biomejs/biome@1.9.4", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "1.9.4", "@biomejs/cli-darwin-x64": "1.9.4", "@biomejs/cli-linux-arm64": "1.9.4", "@biomejs/cli-linux-arm64-musl": "1.9.4", "@biomejs/cli-linux-x64": "1.9.4", "@biomejs/cli-linux-x64-musl": "1.9.4", "@biomejs/cli-win32-arm64": "1.9.4", "@biomejs/cli-win32-x64": "1.9.4" }, "bin": { "biome": "bin/biome" } }, "sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog=="],
 
