@@ -84,15 +84,20 @@ function ActiveGym() {
                         editMarkerOpenState.state.open &&
                         editMarkerOpenState.state.data.id === marker.id
 
+                    const label = `${index + 1}`
+
                     return (
                         <GymMarker
                             key={marker.id}
                             marker={marker}
                             selected={selected}
                             onSelect={() => {
-                                editMarkerOpenState.open(marker)
+                                editMarkerOpenState.open({
+                                    id: marker.id,
+                                    label,
+                                })
                             }}>
-                            {index + 1}
+                            {label}
                         </GymMarker>
                     )
                 })}

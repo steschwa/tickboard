@@ -10,4 +10,4 @@ export type Marker = {
     status: MarkerStatus | null
 }
 
-type MarkerStatus = "done"
+type MarkerStatus = "done" | "todo"

@@ -1,6 +1,7 @@
 import { Dialog as DialogPrimitive } from "@base-ui-components/react/dialog"
 import clsx from "clsx"
 import { XIcon } from "lucide-react"
+import { useState } from "react"
 
 type DialogProps = {
     open?: boolean
@@ -9,10 +10,23 @@ type DialogProps = {
     children: React.ReactNode
 }
 export function Dialog(props: DialogProps) {
+    const [pendingOpen, setPendingOpen] = useState<boolean>()
+
+    let open = props.open
+    if (pendingOpen !== undefined) {
+        open = pendingOpen
+    }
+
     return (
         <DialogPrimitive.Root
-            open={props.open}
-            onOpenChange={props.onOpenChange}>
+            open={open}
+            onOpenChange={v => {
+                setPendingOpen(v)
+            }}
+            onOpenChangeComplete={v => {
+                setPendingOpen(undefined)
+                props.onOpenChange?.(v)
+            }}>
             {props.children}
         </DialogPrimitive.Root>
     )
