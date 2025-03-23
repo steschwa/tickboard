@@ -46,8 +46,8 @@ export function GymMarker(props: GymMarkerProps) {
                 <circle
                     cx={props.marker.x}
                     cy={props.marker.y}
-                    r={GYM_MARKER_RADIUS + 10}
-                    strokeWidth={7}
+                    r={GYM_MARKER_RADIUS + 7}
+                    strokeWidth={5}
                     strokeDasharray="12 4"
                     className={clsx(
                         "fill-transparent",

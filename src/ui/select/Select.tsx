@@ -92,7 +92,7 @@ function Content(props: ContentProps) {
         <Dialog.Portal>
             <Dialog.Backdrop
                 className={clsx(
-                    "bg-gray-900 shadow fixed inset-0",
+                    "bg-gray-900 fixed inset-0",
                     "transition-opacity opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
                 )}
             />

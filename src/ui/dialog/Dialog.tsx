@@ -25,9 +25,15 @@ type ContentProps = {
 function Content(props: ContentProps) {
     return (
         <DialogPrimitive.Portal>
+            <DialogPrimitive.Backdrop
+                className={clsx(
+                    "bg-gray-900 fixed inset-0",
+                    "transition-opacity opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+                )}
+            />
             <DialogPrimitive.Popup
                 className={clsx(
-                    "fixed bottom-0 left-0 right-0 bg-white rounded-tl-2xl rounded-tr-2xl p-4 max-h-4/5 border border-gray-200",
+                    "fixed bottom-0 left-0 right-0 m-2 bg-white rounded-2xl p-4 max-h-4/5 border border-gray-300",
                     "transition-all opacity-100 translate-y-0 data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1/2 data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1/2",
                 )}>
                 <div className="flex items-center justify-between mb-6">

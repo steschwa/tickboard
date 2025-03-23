@@ -1,4 +1,3 @@
-import { GYM_MARKER_RADIUS } from "@/components/gym-marker/GymMarker"
 import type { Gym } from "./gym"
 import type { GymLevel } from "./gym-level"
 
