@@ -12,20 +12,3 @@ export type Marker = {
 }
 
 type MarkerStatus = "done"
-
-const INTERSECTION_TOLERANCE = GYM_MARKER_RADIUS * 1.5
-export function intersects(marker: Marker, point: DOMPoint): boolean {
-    const minX = marker.x - INTERSECTION_TOLERANCE
-    const maxX = marker.x + INTERSECTION_TOLERANCE
-    if (point.x < minX || point.x > maxX) {
-        return false
-    }
-
-    const minY = marker.y - INTERSECTION_TOLERANCE
-    const maxY = marker.y + INTERSECTION_TOLERANCE
-    if (point.y < minY || point.y > maxY) {
-        return false
-    }
-
-    return true
-}
