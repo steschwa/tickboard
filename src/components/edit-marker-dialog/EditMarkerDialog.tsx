@@ -91,17 +91,13 @@ function getToggleGroupValue(status: Marker["status"] | undefined): string[] {
 }
 
 function parseStatus(value: string[]): Marker["status"] {
-    if (value.length === 0) {
-        return null
-    }
-
     const [status] = value
     switch (status) {
         case "done":
             return "done"
         case "todo":
             return "todo"
+        default:
+            return "todo"
     }
-
-    return null
 }

@@ -56,7 +56,7 @@ function ActiveGym() {
                 level: gymLevel,
                 x: transformedPoint.x,
                 y: transformedPoint.y,
-                status: null,
+                status: "todo",
             },
         ])
     }

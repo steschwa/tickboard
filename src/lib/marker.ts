@@ -7,7 +7,7 @@ export type Marker = {
     level: GymLevel
     x: number
     y: number
-    status: MarkerStatus | null
+    status: MarkerStatus
 }
 
 type MarkerStatus = "done" | "todo"

@@ -5,7 +5,7 @@ import { atomWithStorage } from "jotai/utils"
 import { gymAtom, readOnlyGymLevelAtom } from "./gym"
 
 export const markersAtom = atomWithStorage<Marker[]>(
-    createLocalStorageKey("markers", 1),
+    createLocalStorageKey("markers", 2),
     [],
 )
 
