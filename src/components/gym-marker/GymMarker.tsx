@@ -3,12 +3,18 @@ import clsx from "clsx"
 
 type GymMarkerProps = {
     marker: Marker
+    /**
+     * @default "prominent"
+     */
+    variant?: Variant
     selected?: boolean
     onSelect?: () => void
     children?: React.ReactNode
 }
 
 export function GymMarker(props: GymMarkerProps) {
+    const { variant = "prominent" } = props
+
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (!["Space", "Enter"].includes(event.code)) {
             return
@@ -36,9 +42,10 @@ export function GymMarker(props: GymMarkerProps) {
                 cx={props.marker.x}
                 cy={props.marker.y}
                 r={GYM_MARKER_RADIUS}
+                opacity={getCircleOpacity(variant)}
                 className={clsx(
-                    fillClasses(props.marker),
-                    strokeClasses(props.marker),
+                    getFillClasses(props.marker),
+                    getStrokeClasses(props.marker),
                 )}
             />
 
@@ -51,7 +58,7 @@ export function GymMarker(props: GymMarkerProps) {
                     strokeDasharray="12 4"
                     className={clsx(
                         "fill-transparent",
-                        strokeClasses(props.marker),
+                        getStrokeClasses(props.marker),
                     )}
                 />
             )}
@@ -61,16 +68,18 @@ export function GymMarker(props: GymMarkerProps) {
                 y={props.marker.y}
                 textAnchor="middle"
                 alignmentBaseline="central"
-                className={clsx("text-lg", textFillClasses(props.marker))}>
+                className={clsx("text-lg", getTextFillClasses(props.marker))}>
                 {props.children}
             </text>
         </g>
     )
 }
 
-export const GYM_MARKER_RADIUS = 20
+type Variant = "prominent" | "light"
 
-function fillClasses(marker: Marker): string {
+const GYM_MARKER_RADIUS = 20
+
+function getFillClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "fill-yellow-300"
@@ -83,13 +92,13 @@ function fillClasses(marker: Marker): string {
         case "BLOC_HUETTE_BLAU":
             return "fill-blue-700"
         case "BLOC_HUETTE_ROT":
-            return "fill-red-500"
+            return "fill-red-600"
         case "BLOC_HUETTE_SCHWARZ":
             return "fill-gray-800"
     }
 }
 
-function strokeClasses(marker: Marker): string {
+function getStrokeClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "stroke-yellow-300"
@@ -108,7 +117,7 @@ function strokeClasses(marker: Marker): string {
     }
 }
 
-function textFillClasses(marker: Marker): string {
+function getTextFillClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "fill-yellow-950"
@@ -124,5 +133,14 @@ function textFillClasses(marker: Marker): string {
             return "fill-red-50"
         case "BLOC_HUETTE_SCHWARZ":
             return "fill-gray-50"
+    }
+}
+
+function getCircleOpacity(variant: Variant): number {
+    switch (variant) {
+        case "prominent":
+            return 1
+        case "light":
+            return 0.5
     }
 }

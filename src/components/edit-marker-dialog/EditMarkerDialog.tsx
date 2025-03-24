@@ -1,10 +1,10 @@
 import { useRenderActiveGym } from "@/hooks/useRenderActiveGym"
 import type { Marker } from "@/lib/marker"
-import { markersAtom } from "@/stores/markers"
+import { markersAtom, readOnlyGymLevelMarkersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { ToggleGroup } from "@/ui/toggle-group/ToggleGroup"
 import { Toggle } from "@/ui/toggle/Toggle"
-import { useAtom } from "jotai"
+import { useAtom, useAtomValue } from "jotai"
 import { GymMarker } from "../gym-marker/GymMarker"
 import "./editMarkerDialog.css"
 
@@ -16,11 +16,12 @@ type EditMarkerDialogProps = {
 }
 
 export function EditMarkerDialog(props: EditMarkerDialogProps) {
-    const [markers, setMarkers] = useAtom(markersAtom)
+    const [allMarkers, setMarkers] = useAtom(markersAtom)
+    const activeGymMarkers = useAtomValue(readOnlyGymLevelMarkersAtom)
 
     const [ActiveGym, , viewboxHeight] = useRenderActiveGym()
 
-    const marker = markers.find(marker => marker.id === props.markerId)
+    const marker = allMarkers.find(marker => marker.id === props.markerId)
 
     const handleDelete = () => {
         setMarkers(prev => {
@@ -62,7 +63,18 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                     <ActiveGym
                         className="overflow-visible edit-marker-dialog-preview"
                         style={activeGymStyles}>
-                        {marker && <GymMarker selected marker={marker} />}
+                        {activeGymMarkers.map(marker => {
+                            const selected = marker.id === props.markerId
+
+                            return (
+                                <GymMarker
+                                    key={marker.id}
+                                    selected={selected}
+                                    variant={selected ? "prominent" : "light"}
+                                    marker={marker}
+                                />
+                            )
+                        })}
                     </ActiveGym>
                 </div>
 
