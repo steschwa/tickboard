@@ -1,9 +1,12 @@
+import { useRenderActiveGym } from "@/hooks/useRenderActiveGym"
 import type { Marker } from "@/lib/marker"
 import { markersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { ToggleGroup } from "@/ui/toggle-group/ToggleGroup"
 import { Toggle } from "@/ui/toggle/Toggle"
 import { useAtom } from "jotai"
+import { GymMarker } from "../gym-marker/GymMarker"
+import "./editMarkerDialog.css"
 
 type EditMarkerDialogProps = {
     open: boolean
@@ -14,6 +17,8 @@ type EditMarkerDialogProps = {
 
 export function EditMarkerDialog(props: EditMarkerDialogProps) {
     const [markers, setMarkers] = useAtom(markersAtom)
+
+    const [ActiveGym, , viewboxHeight] = useRenderActiveGym()
 
     const marker = markers.find(marker => marker.id === props.markerId)
 
@@ -38,6 +43,11 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
         })
     }
 
+    const activeGymStyles: React.CSSProperties & Record<string, unknown> = {}
+    if (marker) {
+        activeGymStyles["--marker-ratio-y"] = marker.y / viewboxHeight
+    }
+
     return (
         <Dialog
             open={props.open}
@@ -48,6 +58,20 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                 props.onClose()
             }}>
             <Dialog.Content title="Markierung bearbeiten">
+                <div className="overflow-hidden mb-6 edit-marker-dialog-preview-container">
+                    <ActiveGym
+                        className="overflow-visible edit-marker-dialog-preview"
+                        style={activeGymStyles}>
+                        {marker && (
+                            <GymMarker
+                                selected
+                                marker={marker}
+                                onSelect={() => {}}
+                            />
+                        )}
+                    </ActiveGym>
+                </div>
+
                 <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
                         <ToggleGroup

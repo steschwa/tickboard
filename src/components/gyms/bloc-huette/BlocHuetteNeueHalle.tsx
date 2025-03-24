@@ -4,7 +4,7 @@ export function BlocHuetteNeueHalle(
     return (
         <svg
             {...props}
-            viewBox="0 0 748 1249"
+            viewBox={`0 0 ${BLOC_HUETTE_NEUE_HALLE_VB_WIDTH}} ${BLOC_HUETTE_NEUE_HALLE_VB_HEIGHT}`}
             xmlns="http://www.w3.org/2000/svg">
             <title>Bloc-Hütte Neue Halle</title>
             <path
@@ -50,3 +50,6 @@ export function BlocHuetteNeueHalle(
         </svg>
     )
 }
+
+export const BLOC_HUETTE_NEUE_HALLE_VB_WIDTH = 748
+export const BLOC_HUETTE_NEUE_HALLE_VB_HEIGHT = 1249

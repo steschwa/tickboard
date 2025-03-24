@@ -1,0 +1,14 @@
+.edit-marker-dialog-preview-container {
+    --height: calc(var(--spacing) * 32);
+    --padding: calc(var(--spacing) * 4);
+
+    height: var(--height);
+    padding: var(--padding);
+}
+
+.edit-marker-dialog-preview {
+    --container-translate: calc(var(--height) / 2 - var(--padding) / 2);
+    transform: translateY(
+        calc(var(--marker-ratio-y) * 100% * -1 + var(--container-translate))
+    );
+}

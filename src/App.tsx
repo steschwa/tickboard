@@ -2,13 +2,10 @@ import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
 import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
 import { GymMarker } from "./components/gym-marker/GymMarker"
-import { BlocHuetteAussenbereich } from "./components/gyms/bloc-huette/BlocHuetteAussenbereich"
-import { BlocHuetteHaupthalle } from "./components/gyms/bloc-huette/BlocHuetteHaupthalle"
-import { BlocHuetteNeueHalle } from "./components/gyms/bloc-huette/BlocHuetteNeueHalle"
 import { Header } from "./components/header/Header"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
-import type { Gym } from "./lib/gym"
+import { useRenderActiveGym } from "./hooks/useRenderActiveGym"
 import type { Marker } from "./lib/marker"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
@@ -34,6 +31,7 @@ function ActiveGym() {
     const setMarkers = useSetAtom(markersAtom)
 
     const editState = useOpenState<Marker["id"]>()
+    const [ActiveGymComp] = useRenderActiveGym()
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         const svg = event.currentTarget
@@ -61,11 +59,9 @@ function ActiveGym() {
         ])
     }
 
-    const Comp = RENDERED_GYM[gym]
-
     return (
         <>
-            <Comp
+            <ActiveGymComp
                 onClick={handleClick}
                 className="max-w-full max-h-full overflow-visible">
                 {markers.map((marker, index) => {
@@ -86,7 +82,7 @@ function ActiveGym() {
                         </GymMarker>
                     )
                 })}
-            </Comp>
+            </ActiveGymComp>
 
             <EditMarkerDialog
                 open={editState.isOpen}
@@ -95,13 +91,4 @@ function ActiveGym() {
             />
         </>
     )
-}
-
-const RENDERED_GYM: Record<
-    Gym,
-    React.ElementType<React.ComponentPropsWithoutRef<"svg">>
-> = {
-    BLOC_HUETTE_HAUPTHALLE: BlocHuetteHaupthalle,
-    BLOC_HUETTE_AUSSENBEREICH: BlocHuetteAussenbereich,
-    BLOC_HUETTE_NEUEHALLE: BlocHuetteNeueHalle,
 }
