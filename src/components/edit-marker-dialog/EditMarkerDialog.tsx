@@ -3,52 +3,44 @@ import { markersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { ToggleGroup } from "@/ui/toggle-group/ToggleGroup"
 import { Toggle } from "@/ui/toggle/Toggle"
-import { useSetAtom } from "jotai"
+import { useAtom } from "jotai"
 
 type EditMarkerDialogProps = {
     open: boolean
-    data: EditMarkerData | undefined
+    markerId: Marker["id"] | undefined
 
     onClose: () => void
 }
 
 export function EditMarkerDialog(props: EditMarkerDialogProps) {
-    const setMarkers = useSetAtom(markersAtom)
+    const [markers, setMarkers] = useAtom(markersAtom)
+
+    const markerId = props.markerId
+    if (!markerId) {
+        return null
+    }
+
+    const marker = markers.find(marker => marker.id === markerId)
 
     const handleDelete = () => {
-        const id = props.data?.id
-        if (!id) {
-            return
-        }
-
         setMarkers(prev => {
             return prev.filter(marker => {
-                return marker.id !== id
+                return marker.id !== markerId
             })
         })
         props.onClose()
     }
 
     const handleStatusChange = (value: string[]) => {
-        const id = props.data?.id
-        if (!id) {
-            return
-        }
-
         setMarkers(prev => {
             return prev.map(marker => {
-                if (marker.id !== id) {
+                if (marker.id !== markerId) {
                     return marker
                 }
 
                 return { ...marker, status: parseStatus(value) }
             })
         })
-    }
-
-    let title = "Markierung"
-    if (props.data) {
-        title = `Markierung ${props.data.label}`
     }
 
     return (
@@ -60,11 +52,11 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                 }
                 props.onClose()
             }}>
-            <Dialog.Content title={title}>
+            <Dialog.Content title="Markierung bearbeiten">
                 <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
                         <ToggleGroup
-                            value={getToggleGroupValue(props.data)}
+                            value={getToggleGroupValue(marker?.status)}
                             onValueChange={handleStatusChange}>
                             <Toggle value="todo">TODO</Toggle>
                             <Toggle value="done">DONE</Toggle>
@@ -83,22 +75,17 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
     )
 }
 
-export type EditMarkerData = Pick<Marker, "id" | "status"> & { label: string }
-
-function getToggleGroupValue(data: EditMarkerData | undefined): string[] {
-    if (!data) {
-        return []
-    }
-
-    switch (data.status) {
+function getToggleGroupValue(status: Marker["status"] | undefined): string[] {
+    switch (status) {
         case "done":
             return ["done"]
         case "todo":
             return ["todo"]
+        case undefined:
         case null:
             return []
         default:
-            data.status satisfies never
+            status satisfies never
             return []
     }
 }

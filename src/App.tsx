@@ -1,9 +1,6 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
-import {
-    type EditMarkerData,
-    EditMarkerDialog,
-} from "./components/edit-marker-dialog/EditMarkerDialog"
+import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
 import { GymMarker } from "./components/gym-marker/GymMarker"
 import { BlocHuetteAussenbereich } from "./components/gyms/bloc-huette/BlocHuetteAussenbereich"
 import { BlocHuetteHaupthalle } from "./components/gyms/bloc-huette/BlocHuetteHaupthalle"
@@ -12,6 +9,7 @@ import { Header } from "./components/header/Header"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
 import type { Gym } from "./lib/gym"
+import type { Marker } from "./lib/marker"
 import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
@@ -35,7 +33,7 @@ function ActiveGym() {
 
     const setMarkers = useSetAtom(markersAtom)
 
-    const editState = useOpenState<EditMarkerData>()
+    const editState = useOpenState<Marker["id"]>()
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         const svg = event.currentTarget
@@ -72,7 +70,7 @@ function ActiveGym() {
                 className="max-w-full max-h-full overflow-visible">
                 {markers.map((marker, index) => {
                     const selected =
-                        editState.isOpen && editState.data?.id === marker.id
+                        editState.isOpen && editState.data === marker.id
 
                     const label = `${index + 1}`
 
@@ -82,10 +80,7 @@ function ActiveGym() {
                             marker={marker}
                             selected={selected}
                             onSelect={() => {
-                                editState.open({
-                                    id: marker.id,
-                                    label,
-                                })
+                                editState.open(marker.id)
                             }}>
                             {label}
                         </GymMarker>
@@ -95,7 +90,7 @@ function ActiveGym() {
 
             <EditMarkerDialog
                 open={editState.isOpen}
-                data={editState.data}
+                markerId={editState.data}
                 onClose={editState.close}
             />
         </>
