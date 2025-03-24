@@ -53,14 +53,29 @@ export function GymMarker(props: GymMarkerProps) {
                 <circle
                     cx={props.marker.x}
                     cy={props.marker.y}
-                    r={GYM_MARKER_RADIUS + 7}
-                    strokeWidth={5}
-                    strokeDasharray="12 4"
+                    r={GYM_MARKER_RADIUS}
+                    strokeWidth={8}
                     className={clsx(
                         "fill-transparent",
                         getStrokeClasses(props.marker),
-                    )}
-                />
+                    )}>
+                    <animate
+                        attributeName="r"
+                        from={GYM_MARKER_RADIUS * 1.2}
+                        to={GYM_MARKER_RADIUS * 1.8}
+                        dur="1.5s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                    <animate
+                        attributeName="opacity"
+                        from="0.75"
+                        to="0"
+                        dur="1.5s"
+                        begin="0s"
+                        repeatCount="indefinite"
+                    />
+                </circle>
             )}
 
             <text
