@@ -1,8 +1,8 @@
-import type { Marker as MarkerModel } from "@/lib/marker"
+import type { Marker } from "@/lib/marker"
 import clsx from "clsx"
 
 type GymMarkerProps = {
-    marker: MarkerModel
+    marker: Marker
     selected?: boolean
     onSelect?: () => void
     children?: React.ReactNode
@@ -70,7 +70,7 @@ export function GymMarker(props: GymMarkerProps) {
 
 export const GYM_MARKER_RADIUS = 20
 
-function fillClasses(marker: MarkerModel): string {
+function fillClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "fill-yellow-300"
@@ -89,7 +89,7 @@ function fillClasses(marker: MarkerModel): string {
     }
 }
 
-function strokeClasses(marker: MarkerModel): string {
+function strokeClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "stroke-yellow-300"
@@ -108,7 +108,7 @@ function strokeClasses(marker: MarkerModel): string {
     }
 }
 
-function textFillClasses(marker: MarkerModel): string {
+function textFillClasses(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
             return "fill-yellow-950"
