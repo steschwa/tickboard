@@ -15,17 +15,12 @@ type EditMarkerDialogProps = {
 export function EditMarkerDialog(props: EditMarkerDialogProps) {
     const [markers, setMarkers] = useAtom(markersAtom)
 
-    const markerId = props.markerId
-    if (!markerId) {
-        return null
-    }
-
-    const marker = markers.find(marker => marker.id === markerId)
+    const marker = markers.find(marker => marker.id === props.markerId)
 
     const handleDelete = () => {
         setMarkers(prev => {
             return prev.filter(marker => {
-                return marker.id !== markerId
+                return marker.id !== props.markerId
             })
         })
         props.onClose()
@@ -34,7 +29,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
     const handleStatusChange = (value: string[]) => {
         setMarkers(prev => {
             return prev.map(marker => {
-                if (marker.id !== markerId) {
+                if (marker.id !== props.markerId) {
                     return marker
                 }
 
