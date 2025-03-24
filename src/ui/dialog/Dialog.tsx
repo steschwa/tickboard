@@ -39,12 +39,6 @@ type ContentProps = {
 function Content(props: ContentProps) {
     return (
         <DialogPrimitive.Portal>
-            <DialogPrimitive.Backdrop
-                className={clsx(
-                    "bg-gray-900 fixed inset-0",
-                    "transition-opacity opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-                )}
-            />
             <DialogPrimitive.Popup
                 className={clsx(
                     "fixed bottom-0 left-0 right-0 m-2 bg-white rounded-2xl p-4 max-h-4/5 border border-gray-300",
