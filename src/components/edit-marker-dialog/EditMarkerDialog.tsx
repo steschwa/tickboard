@@ -62,13 +62,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                     <ActiveGym
                         className="overflow-visible edit-marker-dialog-preview"
                         style={activeGymStyles}>
-                        {marker && (
-                            <GymMarker
-                                selected
-                                marker={marker}
-                                onSelect={() => {}}
-                            />
-                        )}
+                        {marker && <GymMarker selected marker={marker} />}
                     </ActiveGym>
                 </div>
 

@@ -3,8 +3,8 @@ import clsx from "clsx"
 
 type GymMarkerProps = {
     marker: MarkerModel
-    selected: boolean
-    onSelect: () => void
+    selected?: boolean
+    onSelect?: () => void
     children?: React.ReactNode
 }
 
@@ -17,13 +17,13 @@ export function GymMarker(props: GymMarkerProps) {
         event.stopPropagation()
         event.preventDefault()
 
-        props.onSelect()
+        props.onSelect?.()
     }
 
     const handleClick = (event: React.MouseEvent) => {
         event.stopPropagation()
 
-        props.onSelect()
+        props.onSelect?.()
     }
 
     return (
