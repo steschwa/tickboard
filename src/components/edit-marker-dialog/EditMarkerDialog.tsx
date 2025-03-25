@@ -63,7 +63,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                     <ActiveGym
                         className="overflow-visible edit-marker-dialog-preview"
                         style={activeGymStyles}>
-                        {activeGymMarkers.map(marker => {
+                        {activeGymMarkers.map((marker, index) => {
                             const selected = marker.id === props.markerId
 
                             return (
@@ -71,8 +71,9 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                                     key={marker.id}
                                     selected={selected}
                                     variant={selected ? "prominent" : "light"}
-                                    marker={marker}
-                                />
+                                    marker={marker}>
+                                    {index + 1}
+                                </GymMarker>
                             )
                         })}
                     </ActiveGym>

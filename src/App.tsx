@@ -65,8 +65,6 @@ function ActiveGym() {
                 onClick={handleClick}
                 className="max-w-full max-h-full overflow-visible">
                 {markers.map((marker, index) => {
-                    const label = `${index + 1}`
-
                     return (
                         <GymMarker
                             key={marker.id}
@@ -74,7 +72,7 @@ function ActiveGym() {
                             onSelect={() => {
                                 editState.open(marker.id)
                             }}>
-                            {label}
+                            {index + 1}
                         </GymMarker>
                     )
                 })}
