@@ -2,11 +2,10 @@ import { useRenderActiveGym } from "@/hooks/useRenderActiveGym"
 import type { Marker } from "@/lib/marker"
 import { markersAtom, readOnlyGymLevelMarkersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
-import { ToggleGroup } from "@/ui/toggle-group/ToggleGroup"
-import { Toggle } from "@/ui/toggle/Toggle"
 import { useAtom, useAtomValue } from "jotai"
 import { GymMarker } from "../gym-marker/GymMarker"
 import "./editMarkerDialog.css"
+import { Radio, RadioGroup } from "@/ui/radio/Radio"
 
 type EditMarkerDialogProps = {
     open: boolean
@@ -32,7 +31,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
         props.onClose()
     }
 
-    const handleStatusChange = (value: string[]) => {
+    const handleStatusChange = (value: string) => {
         setMarkers(prev => {
             return prev.map(marker => {
                 if (marker.id !== props.markerId) {
@@ -79,16 +78,16 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                     </ActiveGym>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
-                    <div className="col-span-2">
-                        <ToggleGroup
-                            value={getToggleGroupValue(marker?.status)}
-                            onValueChange={handleStatusChange}>
-                            <Toggle value="todo">TODO</Toggle>
-                            <Toggle value="done">DONE</Toggle>
-                        </ToggleGroup>
-                    </div>
+                <RadioGroup
+                    title="Status"
+                    value={marker?.status}
+                    onValueChange={handleStatusChange}>
+                    <Radio value="todo">TODO</Radio>
+                    <Radio value="done">DONE</Radio>
+                </RadioGroup>
 
+                <div className="flex items-center justify-between mt-6 text-sm font-medium text-gray-900">
+                    Markierung löschen
                     <button
                         type="button"
                         onClick={handleDelete}
@@ -101,24 +100,8 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
     )
 }
 
-function getToggleGroupValue(status: Marker["status"] | undefined): string[] {
-    switch (status) {
-        case "done":
-            return ["done"]
-        case "todo":
-            return ["todo"]
-        case undefined:
-        case null:
-            return []
-        default:
-            status satisfies never
-            return []
-    }
-}
-
-function parseStatus(value: string[]): Marker["status"] {
-    const [status] = value
-    switch (status) {
+function parseStatus(value: string): Marker["status"] {
+    switch (value) {
         case "done":
             return "done"
         case "todo":
