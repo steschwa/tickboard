@@ -35,7 +35,9 @@ export function RadioGroup(props: RadioGroupProps) {
                 </h4>
             )}
 
-            <div className="flex flex-col gap-y-2">{props.children}</div>
+            <div className="flex gap-px rounded-lg border border-gray-200 bg-gray-50 p-1">
+                {props.children}
+            </div>
         </RadioGroupPrimitive>
     )
 }
@@ -46,15 +48,10 @@ type RadioProps = {
 }
 export function Radio(props: RadioProps) {
     return (
-        // biome-ignore lint/a11y/noLabelWithoutControl: biome does not detect <Radio> as control
-        <label className="flex items-center gap-x-4 bg-white">
-            <RadioPrimitive.Root
-                value={props.value}
-                className="size-6 inline-flex items-center justify-center rounded-full border outline-none data-[checked]:bg-gray-800 data-[checked]:border-gray-900 data-[unchecked]:bg-white data-[unchecked]:border-gray-200">
-                <RadioPrimitive.Indicator className="inline-block size-3 bg-white data-[unchecked]:hidden" />
-            </RadioPrimitive.Root>
-
+        <RadioPrimitive.Root
+            value={props.value}
+            className="flex-1 flex items-center justify-center text-sm font-medium p-2 outline-none rounded-md data-[checked]:bg-gray-800 data-[checked]:text-white">
             {props.children}
-        </label>
+        </RadioPrimitive.Root>
     )
 }
