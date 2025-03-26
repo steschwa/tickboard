@@ -47,7 +47,7 @@ function Content(props: ContentProps) {
             />
             <DialogPrimitive.Popup
                 className={clsx(
-                    "fixed bottom-0 left-0 right-0 m-2 bg-white rounded-2xl p-4 max-h-4/5 border border-gray-300",
+                    "fixed bottom-0 left-0 right-0 bg-white rounded-2xl p-4 max-h-4/5 border border-gray-300",
                     "transition-all opacity-100 translate-y-0 data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1/2 data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1/2",
                 )}>
                 <div className="flex items-center justify-between mb-6">
