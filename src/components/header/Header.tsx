@@ -1,6 +1,7 @@
 import { GymSelect } from "@/components/gym-select/GymSelect"
 import type { Gym } from "@/lib/gym"
 import { gymAtom } from "@/stores/gym"
+import { IconButton } from "@/ui/icon-button/IconButton"
 import { useAtomValue } from "jotai"
 import { MapPinnedIcon } from "lucide-react"
 
@@ -14,7 +15,9 @@ export function Header() {
             </h1>
 
             <GymSelect>
-                <MapPinnedIcon />
+                <IconButton>
+                    <MapPinnedIcon />
+                </IconButton>
             </GymSelect>
         </header>
     )

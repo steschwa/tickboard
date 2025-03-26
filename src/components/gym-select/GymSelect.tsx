@@ -15,7 +15,7 @@ export function GymSelect(props: GymSelectProps) {
             onValueChange={gym => {
                 setSelectedGym(gym as Gym)
             }}>
-            <Select.Trigger variant="icon">{props.children}</Select.Trigger>
+            <Select.Trigger variant="plain">{props.children}</Select.Trigger>
             <Select.Content title="Halle auswählen">
                 <GymList
                     title="Bloc-Hütte"
