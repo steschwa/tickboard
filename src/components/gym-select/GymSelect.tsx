@@ -4,7 +4,7 @@ import { Select } from "@/ui/select/Select"
 import { useAtom } from "jotai"
 
 type GymSelectProps = {
-    children: React.ReactNode
+    children: React.ReactElement<Record<string, unknown>>
 }
 export function GymSelect(props: GymSelectProps) {
     const [selectedGym, setSelectedGym] = useAtom(gymAtom)
@@ -15,7 +15,7 @@ export function GymSelect(props: GymSelectProps) {
             onValueChange={gym => {
                 setSelectedGym(gym as Gym)
             }}>
-            <Select.Trigger variant="plain">{props.children}</Select.Trigger>
+            <Select.TriggerPlain render={props.children} />
             <Select.Content title="Halle auswählen">
                 <GymList
                     title="Bloc-Hütte"

@@ -43,16 +43,11 @@ export function Select(props: SelectProps) {
 }
 
 type TriggerProps = {
-    variant?: "default" | "plain"
     placeholder?: string
     children?: React.ReactNode
 }
 function Trigger(props: TriggerProps) {
     const { value } = useContext(SelectContext)
-
-    if (props.variant === "plain") {
-        return <Dialog.Trigger>{props.children}</Dialog.Trigger>
-    }
 
     const showPlaceholder = value === undefined
 
@@ -172,6 +167,7 @@ function Item(props: ItemProps) {
 }
 
 Select.Trigger = Trigger
+Select.TriggerPlain = Dialog.Trigger
 Select.Content = Content
 Select.List = List
 Select.Item = Item
