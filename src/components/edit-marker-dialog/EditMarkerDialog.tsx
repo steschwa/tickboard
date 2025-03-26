@@ -80,7 +80,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
 
                 <RadioGroup
                     title="Status"
-                    value={marker?.status}
+                    value={marker?.status || ""}
                     onValueChange={handleStatusChange}>
                     <Radio value="todo">TODO</Radio>
                     <Radio value="done">DONE</Radio>
