@@ -1,10 +1,10 @@
-import type { Gym } from "@/lib/gym"
 import {
     type BlocHuetteLevel,
+    type Gym,
     type GymLevel,
     getDefaultLevelByGym,
     getLevelsByGym,
-} from "@/lib/gym-level"
+} from "@/lib/gym"
 import { createLocalStorageKey } from "@/lib/storage"
 import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"

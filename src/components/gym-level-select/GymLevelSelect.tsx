@@ -1,8 +1,4 @@
-import {
-    type BlocHuetteLevel,
-    type GymLevel,
-    getLevelsByGym,
-} from "@/lib/gym-level"
+import { type BlocHuetteLevel, type GymLevel, getLevelsByGym } from "@/lib/gym"
 import {
     gymAtom,
     readOnlyGymLevelAtom,

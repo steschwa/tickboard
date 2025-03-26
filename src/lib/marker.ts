@@ -1,5 +1,4 @@
-import type { Gym } from "./gym"
-import type { GymLevel } from "./gym-level"
+import type { Gym, GymLevel } from "./gym"
 
 export type Marker = {
     id: string
