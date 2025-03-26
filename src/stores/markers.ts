@@ -17,3 +17,17 @@ export const readOnlyGymLevelMarkersAtom = atom(get => {
         return marker.gym === gym && marker.level === level
     })
 })
+
+type AddMarkerParams = Pick<Marker, "x" | "y">
+export const addMarkerAtom = atom(null, (get, set, params: AddMarkerParams) => {
+    const marker: Marker = {
+        id: get(markersAtom).length.toString(),
+        gym: get(gymAtom),
+        level: get(readOnlyGymLevelAtom),
+        x: Math.round(params.x),
+        y: Math.round(params.y),
+        status: "todo",
+    }
+
+    set(markersAtom, prev => [...prev, marker])
+})

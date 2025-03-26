@@ -7,8 +7,7 @@ import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
 import { useRenderActiveGym } from "./hooks/useRenderActiveGym"
 import type { Marker } from "./lib/marker"
-import { gymAtom, readOnlyGymLevelAtom } from "./stores/gym"
-import { markersAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
+import { addMarkerAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
     return (
@@ -24,11 +23,9 @@ export function App() {
 }
 
 function ActiveGym() {
-    const gym = useAtomValue(gymAtom)
-    const gymLevel = useAtomValue(readOnlyGymLevelAtom)
     const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
 
-    const setMarkers = useSetAtom(markersAtom)
+    const addMarker = useSetAtom(addMarkerAtom)
 
     const editState = useOpenState<Marker["id"]>()
     const [ActiveGymComp] = useRenderActiveGym()
@@ -46,17 +43,10 @@ function ActiveGym() {
         pt.y = event.clientY
         const transformedPoint = pt.matrixTransform(matrix.inverse())
 
-        setMarkers(prev => [
-            ...prev,
-            {
-                id: prev.length.toString(),
-                gym,
-                level: gymLevel,
-                x: Math.round(transformedPoint.x),
-                y: Math.round(transformedPoint.y),
-                status: "todo",
-            },
-        ])
+        addMarker({
+            x: Math.round(transformedPoint.x),
+            y: Math.round(transformedPoint.y),
+        })
     }
 
     return (
