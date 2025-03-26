@@ -49,11 +49,11 @@ function ActiveGym() {
         setMarkers(prev => [
             ...prev,
             {
-                id: new Date().toISOString(),
+                id: prev.length.toString(),
                 gym,
                 level: gymLevel,
-                x: transformedPoint.x,
-                y: transformedPoint.y,
+                x: Math.round(transformedPoint.x),
+                y: Math.round(transformedPoint.y),
                 status: "todo",
             },
         ])
