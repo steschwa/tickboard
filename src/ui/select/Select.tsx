@@ -2,6 +2,7 @@ import { Dialog } from "@base-ui-components/react/dialog"
 import clsx from "clsx"
 import { ChevronsUpDownIcon, CircleCheckIcon, XIcon } from "lucide-react"
 import { createContext, useContext, useState } from "react"
+import "./select.css"
 
 type SelectContextProps = {
     value: string | undefined
@@ -113,7 +114,7 @@ type ListProps = {
 }
 function List(props: ListProps) {
     return (
-        <div>
+        <div className="select-list">
             {props.title && (
                 <h4 className="mb-3 text-sm font-medium text-gray-900">
                     {props.title}

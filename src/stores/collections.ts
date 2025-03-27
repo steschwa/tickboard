@@ -24,20 +24,18 @@ const _collectionIdAtom = atomWithStorage<Collection["id"] | null>(
     null,
 )
 
-export const selectedCollectionAtom = atom(get => {
-    const collectionId = get(_collectionIdAtom)
-    if (!collectionId) {
-        return
-    }
+export const selectedCollectionAtom = atom(
+    get => {
+        const collectionId = get(_collectionIdAtom)
+        if (!collectionId) {
+            return
+        }
 
-    return get(collectionsAtom).find(collection => {
-        return collection.id === collectionId
-    })
-})
-
-export const setSelectedCollectionAtom = atom(
-    null,
-    (_, set, collectionId: Collection["id"]) => {
+        return get(collectionsAtom).find(collection => {
+            return collection.id === collectionId
+        })
+    },
+    (_, set, collectionId: Collection["id"] | null) => {
         set(_collectionIdAtom, collectionId)
     },
 )
