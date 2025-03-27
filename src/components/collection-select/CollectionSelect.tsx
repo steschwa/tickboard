@@ -3,6 +3,8 @@ import { Select } from "@/ui/select/Select"
 import { useAtomValue } from "jotai"
 import { useAtom } from "jotai"
 import { PlusIcon } from "lucide-react"
+import { useState } from "react"
+import { AddCollectionDialog } from "../add-collection-dialog/AddCollectionDialog"
 
 type CollectionSelectProps = {
     children: React.ReactElement<Record<string, unknown>>
@@ -14,46 +16,56 @@ export function CollectionSelect(props: CollectionSelectProps) {
         selectedCollectionAtom,
     )
 
-    const handleValueChange = (value: string) => {
-        console.log(`changing value to ${value}`)
+    const [addDialogOpen, setAddDialogOpen] = useState(false)
 
+    const handleValueChange = (value: string) => {
         switch (value) {
             case NONE_VALUE:
                 setSelectedCollection(null)
                 break
             case ADD_VALUE:
-                // TODO:
+                setAddDialogOpen(true)
                 break
+            default:
+                setSelectedCollection(value)
         }
-
-        setSelectedCollection(value)
     }
 
     return (
-        <Select
-            value={selectedCollection?.id || NONE_VALUE}
-            onValueChange={handleValueChange}>
-            <Select.TriggerPlain render={props.children} />
-            <Select.Content title="Sammlung auswählen">
-                <Select.List>
-                    <Select.Item value={NONE_VALUE}>Keine Sammlung</Select.Item>
-                </Select.List>
-
-                <Select.List title="Deine Sammlungen">
-                    <Select.Item value={ADD_VALUE}>
-                        <div className="flex items-center gap-x-3">
-                            <PlusIcon className="text-gray-500 size-3" />
-                            <span className="text-gray-900">Neue Sammlung</span>
-                        </div>
-                    </Select.Item>
-                    {collections.map(collection => (
-                        <Select.Item key={collection.id} value={collection.id}>
-                            {collection.name}
+        <>
+            <Select
+                value={selectedCollection?.id || NONE_VALUE}
+                onValueChange={handleValueChange}>
+                <Select.TriggerPlain render={props.children} />
+                <Select.Content title="Sammlung auswählen">
+                    <Select.List>
+                        <Select.Item value={NONE_VALUE}>
+                            Keine Sammlung
                         </Select.Item>
-                    ))}
-                </Select.List>
-            </Select.Content>
-        </Select>
+                    </Select.List>
+
+                    <Select.List title="Deine Sammlungen">
+                        <AddCollectionDialog>
+                            <Select.Item keepOpen value={ADD_VALUE}>
+                                <div className="flex items-center gap-x-3">
+                                    <PlusIcon className="text-gray-500 size-3" />
+                                    <span className="text-gray-900">
+                                        Neue Sammlung
+                                    </span>
+                                </div>
+                            </Select.Item>
+                        </AddCollectionDialog>
+                        {collections.map(collection => (
+                            <Select.Item
+                                key={collection.id}
+                                value={collection.id}>
+                                {collection.name}
+                            </Select.Item>
+                        ))}
+                    </Select.List>
+                </Select.Content>
+            </Select>
+        </>
     )
 }
 
