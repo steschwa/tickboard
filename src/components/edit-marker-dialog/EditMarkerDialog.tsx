@@ -5,6 +5,7 @@ import { Dialog } from "@/ui/dialog/Dialog"
 import { useAtom, useAtomValue } from "jotai"
 import { GymMarker } from "../gym-marker/GymMarker"
 import "./editMarkerDialog.css"
+import { Button } from "@/ui/button/Button"
 import { Radio, RadioGroup } from "@/ui/radio/Radio"
 
 type EditMarkerDialogProps = {
@@ -52,10 +53,9 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
         <Dialog
             open={props.open}
             onOpenChange={open => {
-                if (open) {
-                    return
+                if (!open) {
+                    props.onClose()
                 }
-                props.onClose()
             }}>
             <Dialog.Content title="Markierung bearbeiten">
                 <div className="overflow-hidden mb-6 edit-marker-dialog-preview-container">
@@ -88,12 +88,9 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
 
                 <div className="flex items-center justify-between mt-6 text-sm font-medium text-gray-900">
                     Markierung löschen
-                    <button
-                        type="button"
-                        onClick={handleDelete}
-                        className="h-8 text-center px-3 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200 font-medium">
+                    <Button variant="destructive" onClick={handleDelete}>
                         Entfernen
-                    </button>
+                    </Button>
                 </div>
             </Dialog.Content>
         </Dialog>
