@@ -124,7 +124,7 @@ function Item(props: ItemProps) {
             onClick={handleClick}
             data-selected={selected ? "" : undefined}
             className={clsx(
-                "group flex items-center py-3 px-4 rounded-xl border text-sm font-normal",
+                "group flex items-center h-10 px-4 rounded-xl border text-sm font-normal",
                 {
                     "bg-white text-gray-900 border-gray-100": !selected,
                     "bg-gray-800 text-white border-gray-900": selected,
