@@ -65,4 +65,5 @@ function Content(props: ContentProps) {
     )
 }
 
+Dialog.Trigger = DialogPrimitive.Trigger
 Dialog.Content = Content

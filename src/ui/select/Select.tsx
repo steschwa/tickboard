@@ -4,6 +4,7 @@ import clsx from "clsx"
 import { ChevronsUpDownIcon, CircleCheckIcon } from "lucide-react"
 import { createContext, useContext, useState } from "react"
 import "./select.css"
+import { mergeEventListeners } from "@/lib/events"
 
 type SelectContextProps = {
     value: string | undefined
@@ -93,17 +94,21 @@ function List(props: ListProps) {
     )
 }
 
-type ItemProps = {
+type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
     value: string
     keepOpen?: boolean
     children: React.ReactNode
 }
 function Item(props: ItemProps) {
-    const { keepOpen = false } = props
-    const { value, onValueChange, onOpenChange } = useContext(SelectContext)
+    const { value, keepOpen = false, children, ...restProps } = props
+    const {
+        value: selectedValue,
+        onValueChange,
+        onOpenChange,
+    } = useContext(SelectContext)
 
     const handleClick = () => {
-        onValueChange(props.value)
+        onValueChange(value)
 
         if (!keepOpen) {
             onOpenChange(false)
@@ -112,16 +117,17 @@ function Item(props: ItemProps) {
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (["Enter", "Space"].includes(event.code)) {
-            onValueChange(props.value)
+            onValueChange(value)
         }
     }
 
-    const selected = value === props.value
+    const selected = selectedValue === value
 
     return (
         <div
-            onKeyDown={handleKeyDown}
-            onClick={handleClick}
+            {...restProps}
+            onKeyDown={mergeEventListeners(handleKeyDown, restProps.onKeyDown)}
+            onClick={mergeEventListeners(handleClick, restProps.onClick)}
             data-selected={selected ? "" : undefined}
             className={clsx(
                 "group flex items-center h-10 px-4 rounded-xl border text-sm font-normal",
@@ -129,8 +135,9 @@ function Item(props: ItemProps) {
                     "bg-white text-gray-900 border-gray-100": !selected,
                     "bg-gray-800 text-white border-gray-900": selected,
                 },
+                restProps.className,
             )}>
-            {props.children}
+            {children}
             <CircleCheckIcon
                 className={clsx("ml-auto size-5", {
                     invisible: !selected,
