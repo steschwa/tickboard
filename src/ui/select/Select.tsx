@@ -1,6 +1,7 @@
-import { Dialog } from "@base-ui-components/react/dialog"
+import { Dialog } from "@/ui/dialog/Dialog"
+import { Dialog as DialogPrimitive } from "@base-ui-components/react/dialog"
 import clsx from "clsx"
-import { ChevronsUpDownIcon, CircleCheckIcon, XIcon } from "lucide-react"
+import { ChevronsUpDownIcon, CircleCheckIcon } from "lucide-react"
 import { createContext, useContext, useState } from "react"
 import "./select.css"
 
@@ -36,9 +37,9 @@ export function Select(props: SelectProps) {
                 open,
                 onOpenChange: setOpen,
             }}>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog open={open} onOpenChange={setOpen}>
                 {props.children}
-            </Dialog.Root>
+            </Dialog>
         </SelectContext.Provider>
     )
 }
@@ -60,7 +61,7 @@ function Trigger(props: TriggerProps) {
     }
 
     return (
-        <Dialog.Trigger className="px-3 flex items-center gap-x-4 justify-between h-8 border border-gray-200 rounded-lg focus:outline-none">
+        <DialogPrimitive.Trigger className="px-3 flex items-center gap-x-4 justify-between h-8 border border-gray-200 rounded-lg focus:outline-none">
             <span
                 className={clsx("text-sm font-normal", {
                     "text-gray-500": showPlaceholder,
@@ -71,40 +72,7 @@ function Trigger(props: TriggerProps) {
             <span>
                 <ChevronsUpDownIcon className="size-4 text-gray-200" />
             </span>
-        </Dialog.Trigger>
-    )
-}
-
-type ContentProps = {
-    title: React.ReactNode
-    children: React.ReactNode
-}
-function Content(props: ContentProps) {
-    return (
-        <Dialog.Portal>
-            <Dialog.Backdrop
-                className={clsx(
-                    "bg-gray-900 fixed inset-0",
-                    "transition-opacity opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-                )}
-            />
-            <Dialog.Popup
-                className={clsx(
-                    "fixed bottom-0 left-0 right-0 bg-white rounded-tl-2xl rounded-tr-2xl p-4 max-h-4/5",
-                    "transition-all opacity-100 translate-y-0 data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1/2 data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1/2",
-                )}>
-                <div className="flex items-center justify-between mb-6">
-                    <Dialog.Title className="text-base font-semibold text-gray-900">
-                        {props.title}
-                    </Dialog.Title>
-                    <Dialog.Close className="w-8 h-8 rounded-full bg-gray-50 text-gray-500 inline-flex items-center justify-center shrink-0">
-                        <XIcon className="size-6" />
-                    </Dialog.Close>
-                </div>
-
-                {props.children}
-            </Dialog.Popup>
-        </Dialog.Portal>
+        </DialogPrimitive.Trigger>
     )
 }
 
@@ -168,7 +136,7 @@ function Item(props: ItemProps) {
 }
 
 Select.Trigger = Trigger
-Select.TriggerPlain = Dialog.Trigger
-Select.Content = Content
+Select.TriggerPlain = DialogPrimitive.Trigger
+Select.Content = Dialog.Content
 Select.List = List
 Select.Item = Item
