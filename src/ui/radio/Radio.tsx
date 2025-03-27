@@ -35,7 +35,7 @@ export function RadioGroup(props: RadioGroupProps) {
                 </h4>
             )}
 
-            <div className="flex gap-px rounded-lg border border-gray-200 bg-gray-50 p-1">
+            <div className="flex gap-px rounded-lg border border-gray-200 bg-gray-50 p-0.5">
                 {props.children}
             </div>
         </RadioGroupPrimitive>
@@ -50,7 +50,7 @@ export function Radio(props: RadioProps) {
     return (
         <RadioPrimitive.Root
             value={props.value}
-            className="flex-1 flex items-center justify-center text-sm font-medium p-2 outline-none rounded-md data-[checked]:bg-gray-800 data-[checked]:text-white">
+            className="flex-1 flex items-center justify-center text-sm font-medium h-8 outline-none rounded-md data-[checked]:bg-gray-800 data-[checked]:text-white">
             {props.children}
         </RadioPrimitive.Root>
     )
