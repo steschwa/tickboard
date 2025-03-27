@@ -95,14 +95,19 @@ function List(props: ListProps) {
 
 type ItemProps = {
     value: string
+    keepOpen?: boolean
     children: React.ReactNode
 }
 function Item(props: ItemProps) {
+    const { keepOpen = false } = props
     const { value, onValueChange, onOpenChange } = useContext(SelectContext)
 
     const handleClick = () => {
         onValueChange(props.value)
-        onOpenChange(false)
+
+        if (!keepOpen) {
+            onOpenChange(false)
+        }
     }
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
