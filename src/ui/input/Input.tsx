@@ -7,9 +7,9 @@ export function Input(props: InputProps) {
         <input
             {...props}
             className={clsx(
-                "h-10 px-3 rounded-lg border border-gray-200 text-gray-900 bg-white text-sm",
-                "placeholder:text-gray-400",
-                "focus:outline-3 outline-gray-100",
+                "h-10 px-3 rounded-lg bg-gray-100 text-gray-900 text-sm border border-gray-200",
+                "placeholder:text-gray-500",
+                "focus:outline-none focus:border-gray-400",
             )}
         />
     )
