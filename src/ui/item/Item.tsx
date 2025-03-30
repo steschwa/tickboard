@@ -25,18 +25,30 @@ export function Item(props: ItemProps) {
     } = props
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (variant !== "selection") {
+            return
+        }
+
         if (["Enter", "Space"].includes(event.code)) {
             onSelect?.()
         }
+    }
+
+    const handleSelect = () => {
+        if (variant !== "selection") {
+            return
+        }
+
+        onSelect?.()
     }
 
     return (
         <div
             {...restProps}
             onKeyDown={mergeEventListeners(handleKeyDown, restProps.onKeyDown)}
-            onClick={mergeEventListeners(onSelect, restProps.onClick)}
+            onClick={mergeEventListeners(handleSelect, restProps.onClick)}
             className={clsx(
-                "flex items-center h-10 rounded-xl border text-sm font-normal",
+                "flex h-10 rounded-xl border text-sm font-normal overflow-hidden",
                 {
                     "bg-white text-gray-900 border-gray-100":
                         !selected || variant !== "selection",
@@ -45,38 +57,50 @@ export function Item(props: ItemProps) {
                 },
                 restProps.className,
             )}>
-            <div className="px-4 flex-1">{restProps.children}</div>
-
-            <div className="ml-auto">
-                {variant === "selection" && (
-                    <div className="flex items-center justify-end mr-4">
-                        <CircleCheckIcon
-                            className={clsx(
-                                "size-5",
-                                selected ? "inline-block" : "hidden",
-                            )}
-                        />
-                    </div>
-                )}
-                {variant === "management" && (
-                    <div className="flex items-stretch justify-end">
-                        <button
-                            type="button"
-                            onClick={props.onEdit}
-                            className="p-3 inline-flex items-center justify-center bg-blue-100 text-blue-600">
-                            <PencilIcon className="size-5" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={props.onDelete}
-                            className="p-3 inline-flex items-center justify-center bg-red-100 text-red-600">
-                            <Trash2Icon className="size-5" />
-                        </button>
-                    </div>
-                )}
+            <div className="flex-1 flex items-center px-4">
+                {restProps.children}
             </div>
+
+            {variant === "selection" && (
+                <div className="flex items-center justify-end mr-4">
+                    <CircleCheckIcon
+                        className={clsx(
+                            "size-5",
+                            selected ? "inline-block" : "hidden",
+                        )}
+                    />
+                </div>
+            )}
+            {variant === "management" && (
+                <div className="flex items-stretch justify-end">
+                    <ManagementButton variant="edit" onClick={props.onEdit} />
+                    <ManagementButton
+                        variant="delete"
+                        onClick={props.onDelete}
+                    />
+                </div>
+            )}
         </div>
     )
 }
 
 export type ItemVariant = "selection" | "management"
+
+type ManagementButtonProps = {
+    variant: "edit" | "delete"
+    onClick?: () => void
+}
+function ManagementButton(props: ManagementButtonProps) {
+    return (
+        <button
+            type="button"
+            onClick={props.onClick}
+            className={clsx("px-3 inline-flex items-center justify-center ", {
+                "bg-blue-50 text-blue-500": props.variant === "edit",
+                "bg-red-50 text-red-500": props.variant === "delete",
+            })}>
+            {props.variant === "edit" && <PencilIcon className="size-4" />}
+            {props.variant === "delete" && <Trash2Icon className="size-4" />}
+        </button>
+    )
+}
