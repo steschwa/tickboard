@@ -1,0 +1,3 @@
+.list + .list {
+    margin-top: calc(var(--spacing) * 6);
+}

@@ -1,10 +1,10 @@
 import { Dialog } from "@/ui/dialog/Dialog"
+import { Item as ItemPrimitive } from "@/ui/item/Item"
+import { List } from "@/ui/list/List"
 import { Dialog as DialogPrimitive } from "@base-ui-components/react/dialog"
 import clsx from "clsx"
-import { ChevronsUpDownIcon, CircleCheckIcon } from "lucide-react"
+import { ChevronsUpDownIcon } from "lucide-react"
 import { createContext, useContext, useState } from "react"
-import "./select.css"
-import { mergeEventListeners } from "@/lib/events"
 
 type SelectContextProps = {
     value: string | undefined
@@ -77,23 +77,6 @@ function Trigger(props: TriggerProps) {
     )
 }
 
-type ListProps = {
-    title?: React.ReactNode
-    children: React.ReactNode
-}
-function List(props: ListProps) {
-    return (
-        <div className="select-list">
-            {props.title && (
-                <h4 className="mb-3 text-sm font-medium text-gray-900">
-                    {props.title}
-                </h4>
-            )}
-            <div className="flex flex-col gap-y-2">{props.children}</div>
-        </div>
-    )
-}
-
 type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
     value: string
     keepOpen?: boolean
@@ -107,43 +90,21 @@ function Item(props: ItemProps) {
         onOpenChange,
     } = useContext(SelectContext)
 
-    const handleClick = () => {
-        onValueChange(value)
-
-        if (!keepOpen) {
-            onOpenChange(false)
-        }
-    }
-
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-        if (["Enter", "Space"].includes(event.code)) {
-            onValueChange(value)
-        }
-    }
-
     const selected = selectedValue === value
 
     return (
-        <div
+        <ItemPrimitive
             {...restProps}
-            onKeyDown={mergeEventListeners(handleKeyDown, restProps.onKeyDown)}
-            onClick={mergeEventListeners(handleClick, restProps.onClick)}
-            data-selected={selected ? "" : undefined}
-            className={clsx(
-                "group flex items-center h-10 px-4 rounded-xl border text-sm font-normal",
-                {
-                    "bg-white text-gray-900 border-gray-100": !selected,
-                    "bg-gray-800 text-white border-gray-900": selected,
-                },
-                restProps.className,
-            )}>
+            variant="selection"
+            selected={selected}
+            onSelect={() => {
+                onValueChange(value)
+                if (!keepOpen) {
+                    onOpenChange(false)
+                }
+            }}>
             {children}
-            <CircleCheckIcon
-                className={clsx("ml-auto size-5", {
-                    invisible: !selected,
-                })}
-            />
-        </div>
+        </ItemPrimitive>
     )
 }
 
