@@ -1,3 +1,4 @@
+import { randomId } from "@/lib/random"
 import { collectionsAtom, selectedCollectionAtom } from "@/stores/collections"
 import { Select } from "@/ui/select/Select"
 import { useAtomValue } from "jotai"
@@ -65,5 +66,5 @@ export function CollectionSelect(props: CollectionSelectProps) {
     )
 }
 
-const NONE_VALUE = crypto.randomUUID()
-const ADD_VALUE = crypto.randomUUID()
+const NONE_VALUE = randomId()
+const ADD_VALUE = randomId()

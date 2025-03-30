@@ -12,8 +12,8 @@ export function Button(props: ButtonProps) {
 
     return (
         <button
-            {...restProps}
             type="button"
+            {...restProps}
             className={clsx(
                 "h-8 text-center font-medium px-3 rounded-lg text-sm border focus:outline-none",
                 {
@@ -22,6 +22,7 @@ export function Button(props: ButtonProps) {
                     "bg-red-50 text-red-700 border-red-200":
                         variant === "destructive",
                 },
+                restProps.className,
             )}
         />
     )

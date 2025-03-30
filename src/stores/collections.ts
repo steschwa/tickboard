@@ -39,3 +39,13 @@ export const selectedCollectionAtom = atom(
         set(_collectionIdAtom, collectionId)
     },
 )
+
+export const addCollectionAtom = atom(null, (get, set, name: string) => {
+    const collection: Collection = {
+        id: get(collectionsAtom).length.toString(),
+        name,
+        createdAt: new Date(),
+    }
+
+    set(collectionsAtom, prev => [...prev, collection])
+})
