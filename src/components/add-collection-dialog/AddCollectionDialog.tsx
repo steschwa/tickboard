@@ -10,10 +10,10 @@ export function AddCollectionDialog(props: AddCollectionDialogProps) {
     return (
         <Dialog>
             <Dialog.Trigger render={props.children} />
-            <Dialog.Content title="Sammlung hinzufügen">
+            <Dialog.Content title="Neue Sammlung erstellen">
                 <div className="flex flex-col gap-y-6">
                     <Input autoFocus placeholder="Bezeichnung" />
-                    <Button variant="primary">Hinzufügen</Button>
+                    <Button variant="primary">Sammlung hinzufügen</Button>
                 </div>
             </Dialog.Content>
         </Dialog>
