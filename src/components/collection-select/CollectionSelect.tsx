@@ -1,9 +1,12 @@
-import { randomId } from "@/lib/random"
+import type { Collection } from "@/lib/collection"
 import { collectionsAtom, selectedCollectionAtom } from "@/stores/collections"
-import { Select } from "@/ui/select/Select"
+import { Dialog } from "@/ui/dialog/Dialog"
+import { Item } from "@/ui/item/Item"
+import { List } from "@/ui/list/List"
 import { useAtomValue } from "jotai"
 import { useAtom } from "jotai"
 import { PlusIcon } from "lucide-react"
+import { useState } from "react"
 import { AddCollectionDialog } from "../add-collection-dialog/AddCollectionDialog"
 
 type CollectionSelectProps = {
@@ -16,55 +19,61 @@ export function CollectionSelect(props: CollectionSelectProps) {
         selectedCollectionAtom,
     )
 
-    const handleValueChange = (value: string) => {
-        switch (value) {
-            case NONE_VALUE:
-                setSelectedCollection(null)
-                break
-            case ADD_VALUE:
-                return
-            default:
-                setSelectedCollection(value)
-        }
+    const [open, setOpen] = useState(false)
+
+    const handleNoCollectionSelect = () => {
+        setSelectedCollection(null)
+        setOpen(false)
+    }
+
+    const handleCollectionSelect = (collectionId: Collection["id"]) => {
+        setSelectedCollection(collectionId)
+        setOpen(false)
     }
 
     return (
-        <>
-            <Select
-                value={selectedCollection?.id || NONE_VALUE}
-                onValueChange={handleValueChange}>
-                <Select.TriggerPlain render={props.children} />
-                <Select.Content title="Sammlung auswählen">
-                    <Select.List>
-                        <Select.Item value={NONE_VALUE}>
-                            Keine Sammlung
-                        </Select.Item>
-                    </Select.List>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger render={props.children} />
+            <Dialog.Content title="Sammlungen verwalten">
+                <List>
+                    <Item
+                        selected={!selectedCollection}
+                        onSelect={handleNoCollectionSelect}>
+                        Keine Sammlung
+                    </Item>
+                </List>
 
-                    <Select.List title="Deine Sammlungen">
-                        <AddCollectionDialog>
-                            <Select.Item keepOpen value={ADD_VALUE}>
-                                <div className="flex items-center gap-x-3">
-                                    <PlusIcon className="text-gray-500 size-5" />
-                                    <span className="text-gray-900">
-                                        Neue Sammlung
-                                    </span>
-                                </div>
-                            </Select.Item>
-                        </AddCollectionDialog>
-                        {collections.map(collection => (
-                            <Select.Item
-                                key={collection.id}
-                                value={collection.id}>
-                                {collection.name}
-                            </Select.Item>
-                        ))}
-                    </Select.List>
-                </Select.Content>
-            </Select>
-        </>
+                <List title="Deine Sammlungen">
+                    <AddCollectionDialog>
+                        <Item>
+                            <div className="flex items-center gap-x-3">
+                                <PlusIcon className="text-gray-500 size-5" />
+                                <span className="text-gray-900">
+                                    Neue Sammlung
+                                </span>
+                            </div>
+                        </Item>
+                    </AddCollectionDialog>
+
+                    {collections.map(collection => (
+                        <Item
+                            key={collection.id}
+                            variant="selection"
+                            selected={selectedCollection?.id === collection.id}
+                            onSelect={() =>
+                                handleCollectionSelect(collection.id)
+                            }
+                            onEdit={() => {
+                                console.log(`edit ${collection.name}`)
+                            }}
+                            onDelete={() => {
+                                console.log(`delete ${collection.name}`)
+                            }}>
+                            {collection.name}
+                        </Item>
+                    ))}
+                </List>
+            </Dialog.Content>
+        </Dialog>
     )
 }
-
-const NONE_VALUE = randomId()
-const ADD_VALUE = randomId()
