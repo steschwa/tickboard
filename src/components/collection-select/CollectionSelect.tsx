@@ -3,7 +3,6 @@ import { Select } from "@/ui/select/Select"
 import { useAtomValue } from "jotai"
 import { useAtom } from "jotai"
 import { PlusIcon } from "lucide-react"
-import { useState } from "react"
 import { AddCollectionDialog } from "../add-collection-dialog/AddCollectionDialog"
 
 type CollectionSelectProps = {
@@ -16,16 +15,13 @@ export function CollectionSelect(props: CollectionSelectProps) {
         selectedCollectionAtom,
     )
 
-    const [addDialogOpen, setAddDialogOpen] = useState(false)
-
     const handleValueChange = (value: string) => {
         switch (value) {
             case NONE_VALUE:
                 setSelectedCollection(null)
                 break
             case ADD_VALUE:
-                setAddDialogOpen(true)
-                break
+                return
             default:
                 setSelectedCollection(value)
         }
@@ -48,7 +44,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                         <AddCollectionDialog>
                             <Select.Item keepOpen value={ADD_VALUE}>
                                 <div className="flex items-center gap-x-3">
-                                    <PlusIcon className="text-gray-500 size-3" />
+                                    <PlusIcon className="text-gray-500 size-5" />
                                     <span className="text-gray-900">
                                         Neue Sammlung
                                     </span>
