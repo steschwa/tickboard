@@ -30,7 +30,7 @@ export function RadioGroup(props: RadioGroupProps) {
             {props.title && (
                 <h4
                     id={labeledById}
-                    className="mb-3 text-sm font-medium text-gray-900">
+                    className="mb-1 text-sm font-medium text-gray-900">
                     {props.title}
                 </h4>
             )}
