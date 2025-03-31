@@ -73,11 +73,18 @@ export function Item(props: ItemProps) {
             )}
             {variant === "management" && (
                 <div className="flex items-stretch justify-end">
-                    <ManagementButton variant="edit" onClick={props.onEdit} />
-                    <ManagementButton
-                        variant="delete"
-                        onClick={props.onDelete}
-                    />
+                    {props.onEdit && (
+                        <ManagementButton
+                            variant="edit"
+                            onClick={props.onEdit}
+                        />
+                    )}
+                    {props.onDelete && (
+                        <ManagementButton
+                            variant="delete"
+                            onClick={props.onDelete}
+                        />
+                    )}
                 </div>
             )}
         </div>
