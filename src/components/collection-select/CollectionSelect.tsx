@@ -13,6 +13,7 @@ import { useSetAtom } from "jotai"
 import { PlusIcon } from "lucide-react"
 import { useState } from "react"
 import { AddCollectionDialog } from "../add-collection-dialog/AddCollectionDialog"
+import { EditCollectionDialog } from "../edit-collection-dialog/EditCollectionDialog"
 
 type CollectionSelectProps = {
     children: React.ReactElement<Record<string, unknown>>
@@ -72,9 +73,11 @@ export function CollectionSelect(props: CollectionSelectProps) {
                             onSelect={() =>
                                 handleCollectionSelect(collection.id)
                             }
-                            onEdit={() => {
-                                console.log(`edit ${collection.name}`)
-                            }}
+                            renderEdit={child => (
+                                <EditCollectionDialog collection={collection}>
+                                    {child}
+                                </EditCollectionDialog>
+                            )}
                             onDelete={() => {
                                 handleCollectionDelete(collection.id)
                             }}>

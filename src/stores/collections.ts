@@ -67,3 +67,18 @@ export const deleteCollectionAtom = atom(
         })
     },
 )
+
+type UpdateCollectionFn = (collection: Collection) => Collection
+export const updateCollectionAtom = atom(
+    null,
+    (_, set, id: Collection["id"], updateFn: UpdateCollectionFn) => {
+        set(collectionsAtom, prev => {
+            return prev.map(collection => {
+                if (collection.id === id) {
+                    return updateFn(collection)
+                }
+                return collection
+            })
+        })
+    },
+)
