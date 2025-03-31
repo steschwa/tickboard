@@ -54,7 +54,9 @@ export function CollectionSelect(props: CollectionSelectProps) {
                     </Item>
                 </List>
 
-                <List editable title="Deine Sammlungen">
+                <List
+                    editable={collections.length >= 1}
+                    title="Deine Sammlungen">
                     <AddCollectionDialog>
                         <Item>
                             <div className="flex items-center gap-x-3">

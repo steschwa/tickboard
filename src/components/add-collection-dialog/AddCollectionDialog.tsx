@@ -23,7 +23,9 @@ export function AddCollectionDialog(props: AddCollectionDialogProps) {
         }
 
         addCollection(name)
+
         setOpen(false)
+        setName("")
     }
 
     return (
