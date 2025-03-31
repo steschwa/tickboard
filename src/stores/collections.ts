@@ -49,3 +49,21 @@ export const addCollectionAtom = atom(null, (get, set, name: string) => {
 
     set(collectionsAtom, prev => [...prev, collection])
 })
+
+export const deleteCollectionAtom = atom(
+    null,
+    (_, set, id: Collection["id"]) => {
+        set(collectionsAtom, prev => {
+            return prev.filter(collection => {
+                return collection.id !== id
+            })
+        })
+
+        set(_collectionIdAtom, prev => {
+            if (prev === id) {
+                return null
+            }
+            return prev
+        })
+    },
+)

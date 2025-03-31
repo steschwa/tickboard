@@ -1,10 +1,15 @@
 import type { Collection } from "@/lib/collection"
-import { collectionsAtom, selectedCollectionAtom } from "@/stores/collections"
+import {
+    collectionsAtom,
+    deleteCollectionAtom,
+    selectedCollectionAtom,
+} from "@/stores/collections"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { Item } from "@/ui/item/Item"
 import { List } from "@/ui/list/List"
 import { useAtomValue } from "jotai"
 import { useAtom } from "jotai"
+import { useSetAtom } from "jotai"
 import { PlusIcon } from "lucide-react"
 import { useState } from "react"
 import { AddCollectionDialog } from "../add-collection-dialog/AddCollectionDialog"
@@ -15,6 +20,7 @@ type CollectionSelectProps = {
 
 export function CollectionSelect(props: CollectionSelectProps) {
     const collections = useAtomValue(collectionsAtom)
+    const deleteCollection = useSetAtom(deleteCollectionAtom)
     const [selectedCollection, setSelectedCollection] = useAtom(
         selectedCollectionAtom,
     )
@@ -29,6 +35,10 @@ export function CollectionSelect(props: CollectionSelectProps) {
     const handleCollectionSelect = (collectionId: Collection["id"]) => {
         setSelectedCollection(collectionId)
         setOpen(false)
+    }
+
+    const handleCollectionDelete = (collectionId: Collection["id"]) => {
+        deleteCollection(collectionId)
     }
 
     return (
@@ -66,7 +76,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                                 console.log(`edit ${collection.name}`)
                             }}
                             onDelete={() => {
-                                console.log(`delete ${collection.name}`)
+                                handleCollectionDelete(collection.id)
                             }}>
                             {collection.name}
                         </Item>
