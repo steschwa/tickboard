@@ -25,6 +25,17 @@ export function App() {
                 `${originalHeight - height}px`,
             )
         })
+
+        document.addEventListener("focusout", event => {
+            if (!event.target) {
+                return
+            }
+
+            const element = event.target as HTMLElement
+            if (element instanceof HTMLInputElement) {
+                document.body.style.setProperty("--vv-offset-bottom", "0px")
+            }
+        })
     }, [])
 
     return (
