@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
+import { useLayoutEffect } from "react"
 import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
 import {
     GymMarker,
@@ -13,6 +14,19 @@ import type { Marker } from "./lib/marker"
 import { addMarkerAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
+    useLayoutEffect(() => {
+        const originalHeight = getViewportHeight()
+
+        // device virtual keyboard
+        window.visualViewport?.addEventListener("resize", () => {
+            const height = getViewportHeight()
+            document.body.style.setProperty(
+                "--vv-offset-bottom",
+                `${originalHeight - height}px`,
+            )
+        })
+    }, [])
+
     return (
         <div className="h-dvh flex flex-col">
             <Header />
@@ -88,4 +102,8 @@ function getGymMarkerVariant(status: Marker["status"]): GymMarkerVariant {
         case "todo":
             return "prominent"
     }
+}
+
+function getViewportHeight(): number {
+    return window.visualViewport?.height || window.innerHeight
 }

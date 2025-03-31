@@ -33,7 +33,7 @@ function Content(props: ContentProps) {
             />
             <DialogPrimitive.Popup
                 className={clsx(
-                    "fixed bottom-0 left-0 right-0 bg-white rounded-tl-2xl rounded-tr-2xl p-4 max-h-4/5",
+                    "fixed bottom-(--vv-offset-bottom) left-0 right-0 bg-white rounded-tl-2xl rounded-tr-2xl p-4 max-h-4/5",
                     "transition-all opacity-100 translate-y-0 data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1/2 data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1/2",
                     "data-[has-nested-dialogs]:opacity-0",
                     "focus:outline-none",
