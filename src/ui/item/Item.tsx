@@ -8,14 +8,18 @@ type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
     selected?: boolean
 
     onSelect?: () => void
-    renderEdit?: (
-        element: React.ReactElement<Record<string, unknown>>,
-    ) => React.ReactNode
-    onDelete?: () => void
+    edit?: React.ReactNode
+    delete?: React.ReactNode
 }
 
 export function Item(props: ItemProps) {
-    const { selected, onSelect, renderEdit, onDelete, ...restProps } = props
+    const {
+        selected,
+        onSelect,
+        edit,
+        delete: deleteElement,
+        ...restProps
+    } = props
 
     const { variant } = useContext(ItemContext)
 
@@ -68,13 +72,8 @@ export function Item(props: ItemProps) {
             )}
             {variant === "management" && (
                 <div className="flex items-stretch justify-end">
-                    {props.renderEdit?.(<ManagementButton variant="edit" />)}
-                    {props.onDelete && (
-                        <ManagementButton
-                            variant="delete"
-                            onClick={props.onDelete}
-                        />
-                    )}
+                    {edit}
+                    {deleteElement}
                 </div>
             )}
         </div>
@@ -83,26 +82,38 @@ export function Item(props: ItemProps) {
 
 export type ItemVariant = "selection" | "management"
 
-type ManagementButtonProps = React.ComponentPropsWithoutRef<"button"> & {
-    variant: "edit" | "delete"
-}
-function ManagementButton(props: ManagementButtonProps) {
-    const { variant, ...restProps } = props
-
+type ActionButtonProps = React.ComponentPropsWithoutRef<"button">
+function ActionButton(props: ActionButtonProps) {
     return (
         <button
-            {...restProps}
+            {...props}
             type="button"
             className={clsx(
-                "px-3 inline-flex items-center justify-center ",
-                {
-                    "bg-blue-50 text-blue-500": props.variant === "edit",
-                    "bg-red-50 text-red-500": props.variant === "delete",
-                },
-                restProps.className,
-            )}>
-            {props.variant === "edit" && <PencilIcon className="size-4" />}
-            {props.variant === "delete" && <Trash2Icon className="size-4" />}
-        </button>
+                "px-3 inline-flex items-center justify-center icon:size-4",
+                props.className,
+            )}
+        />
     )
 }
+
+function EditActionButton(props: ActionButtonProps) {
+    return (
+        <ActionButton
+            {...props}
+            className={clsx("bg-blue-50 text-blue-500", props.className)}>
+            <PencilIcon />
+        </ActionButton>
+    )
+}
+Item.Edit = EditActionButton
+
+function DeleteActionButton(props: ActionButtonProps) {
+    return (
+        <ActionButton
+            {...props}
+            className={clsx("bg-red-50 text-red-500", props.className)}>
+            <Trash2Icon />
+        </ActionButton>
+    )
+}
+Item.Delete = DeleteActionButton

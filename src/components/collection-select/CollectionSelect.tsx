@@ -73,14 +73,18 @@ export function CollectionSelect(props: CollectionSelectProps) {
                             onSelect={() =>
                                 handleCollectionSelect(collection.id)
                             }
-                            renderEdit={child => (
+                            edit={
                                 <EditCollectionDialog collection={collection}>
-                                    {child}
+                                    <Item.Edit />
                                 </EditCollectionDialog>
-                            )}
-                            onDelete={() => {
-                                handleCollectionDelete(collection.id)
-                            }}>
+                            }
+                            delete={
+                                <Item.Delete
+                                    onClick={() => {
+                                        handleCollectionDelete(collection.id)
+                                    }}
+                                />
+                            }>
                             {collection.name}
                         </Item>
                     ))}

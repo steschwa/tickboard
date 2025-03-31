@@ -8,7 +8,7 @@ import { useState } from "react"
 
 type EditCollectionDialogProps = {
     collection: Collection | undefined
-    children: React.ReactElement<Record<string, unknown>>
+    children?: React.ReactElement<Record<string, unknown>>
 }
 
 export function EditCollectionDialog(props: EditCollectionDialogProps) {
