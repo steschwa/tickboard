@@ -36,6 +36,7 @@ function Content(props: ContentProps) {
                     "fixed bottom-0 left-0 right-0 bg-white rounded-tl-2xl rounded-tr-2xl p-4 max-h-4/5",
                     "transition-all opacity-100 translate-y-0 data-[starting-style]:opacity-0 data-[starting-style]:translate-y-1/2 data-[ending-style]:opacity-0 data-[ending-style]:translate-y-1/2",
                     "data-[has-nested-dialogs]:opacity-0",
+                    "focus:outline-none",
                 )}>
                 <div className="flex items-center justify-between mb-6">
                     <DialogPrimitive.Title className="text-base font-semibold text-gray-900">
