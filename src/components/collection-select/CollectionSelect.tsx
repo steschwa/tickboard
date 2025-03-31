@@ -43,7 +43,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                     </Item>
                 </List>
 
-                <List title="Deine Sammlungen">
+                <List editable title="Deine Sammlungen">
                     <AddCollectionDialog>
                         <Item>
                             <div className="flex items-center gap-x-3">
@@ -58,7 +58,6 @@ export function CollectionSelect(props: CollectionSelectProps) {
                     {collections.map(collection => (
                         <Item
                             key={collection.id}
-                            variant="selection"
                             selected={selectedCollection?.id === collection.id}
                             onSelect={() =>
                                 handleCollectionSelect(collection.id)

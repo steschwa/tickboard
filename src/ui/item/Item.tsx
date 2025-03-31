@@ -1,12 +1,10 @@
 import { mergeEventListeners } from "@/lib/events"
 import clsx from "clsx"
 import { CircleCheckIcon, PencilIcon, Trash2Icon } from "lucide-react"
+import { useContext } from "react"
+import { ItemContext } from "./Item.context"
 
 type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
-    /**
-     * @default "selection"
-     */
-    variant?: ItemVariant
     selected?: boolean
 
     onSelect?: () => void
@@ -15,14 +13,9 @@ type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
 }
 
 export function Item(props: ItemProps) {
-    const {
-        variant = "selection",
-        selected,
-        onSelect,
-        onEdit,
-        onDelete,
-        ...restProps
-    } = props
+    const { selected, onSelect, onEdit, onDelete, ...restProps } = props
+
+    const { variant } = useContext(ItemContext)
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (variant !== "selection") {
