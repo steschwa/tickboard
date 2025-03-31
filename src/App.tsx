@@ -1,7 +1,10 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
 import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
-import { GymMarker } from "./components/gym-marker/GymMarker"
+import {
+    GymMarker,
+    type GymMarkerVariant,
+} from "./components/gym-marker/GymMarker"
 import { Header } from "./components/header/Header"
 import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
@@ -58,6 +61,7 @@ function ActiveGym() {
                     return (
                         <GymMarker
                             key={marker.id}
+                            variant={getGymMarkerVariant(marker.status)}
                             marker={marker}
                             onSelect={() => {
                                 editState.open(marker.id)
@@ -75,4 +79,13 @@ function ActiveGym() {
             />
         </>
     )
+}
+
+function getGymMarkerVariant(status: Marker["status"]): GymMarkerVariant {
+    switch (status) {
+        case "done":
+            return "light"
+        case "todo":
+            return "prominent"
+    }
 }

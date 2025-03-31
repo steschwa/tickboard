@@ -6,7 +6,7 @@ type GymMarkerProps = {
     /**
      * @default "prominent"
      */
-    variant?: Variant
+    variant?: GymMarkerVariant
     selected?: boolean
     onSelect?: () => void
     children?: React.ReactNode
@@ -90,7 +90,7 @@ export function GymMarker(props: GymMarkerProps) {
     )
 }
 
-type Variant = "prominent" | "light"
+export type GymMarkerVariant = "prominent" | "light"
 
 const GYM_MARKER_RADIUS = 20
 
@@ -151,7 +151,7 @@ function getTextFillClasses(marker: Marker): string {
     }
 }
 
-function getCircleOpacity(variant: Variant): number {
+function getCircleOpacity(variant: GymMarkerVariant): number {
     switch (variant) {
         case "prominent":
             return 1
