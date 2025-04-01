@@ -20,10 +20,7 @@ export function App() {
         // device virtual keyboard
         window.visualViewport?.addEventListener("resize", () => {
             const height = getViewportHeight()
-            document.body.style.setProperty(
-                "--vv-offset-bottom",
-                `${originalHeight - height}px`,
-            )
+            setDeviceBottomOffset(originalHeight - height)
         })
 
         document.addEventListener("focusout", event => {
@@ -33,7 +30,7 @@ export function App() {
 
             const element = event.target as HTMLElement
             if (element instanceof HTMLInputElement) {
-                document.body.style.setProperty("--vv-offset-bottom", "0px")
+                setDeviceBottomOffset(0)
             }
         })
     }, [])
@@ -117,4 +114,8 @@ function getGymMarkerVariant(status: Marker["status"]): GymMarkerVariant {
 
 function getViewportHeight(): number {
     return window.visualViewport?.height || window.innerHeight
+}
+
+function setDeviceBottomOffset(offset: number) {
+    document.body.style.setProperty("--vv-offset-bottom", `${offset}px`)
 }
