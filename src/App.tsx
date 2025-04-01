@@ -17,22 +17,41 @@ export function App() {
     useLayoutEffect(() => {
         const originalHeight = getViewportHeight()
 
-        // device virtual keyboard
-        window.visualViewport?.addEventListener("resize", () => {
+        const handleVResize = () => {
             const height = getViewportHeight()
             setDeviceBottomOffset(originalHeight - height)
-        })
+        }
 
-        document.addEventListener("focusout", event => {
+        const handleFocusOut = (event: FocusEvent) => {
             if (!event.target) {
                 return
             }
 
+            // `event.target` is the element losing focus
             const element = event.target as HTMLElement
             if (element instanceof HTMLInputElement) {
                 setDeviceBottomOffset(0)
             }
-        })
+        }
+
+        // device virtual keyboard
+        window.visualViewport?.addEventListener("resize", handleVResize)
+
+        // WHY?
+        // after closing the virtual keyboard
+        // safari takes about ~1s to fire "resize" again.
+        // in the meantime this shows a floating dialog, which is not what i want
+        //
+        // HOW?
+        // listening for the "focusout" event (element losing focus), we handle
+        // dialogs that contain elements which are likely to
+        // have triggered the virtual keyboard
+        document.addEventListener("focusout", handleFocusOut)
+
+        return () => {
+            window.visualViewport?.removeEventListener("resize", handleVResize)
+            document.removeEventListener("focusout", handleFocusOut)
+        }
     }, [])
 
     return (
