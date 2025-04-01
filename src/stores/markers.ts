@@ -1,4 +1,5 @@
 import type { Marker } from "@/lib/marker"
+import { getRandomId } from "@/lib/random"
 import { createLocalStorageKey } from "@/lib/storage"
 import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
@@ -27,7 +28,7 @@ export const readOnlyGymLevelMarkersAtom = atom(get => {
 type AddMarkerParams = Pick<Marker, "x" | "y">
 export const addMarkerAtom = atom(null, (get, set, params: AddMarkerParams) => {
     const marker: Marker = {
-        id: get(markersAtom).length.toString(),
+        id: getRandomId(),
         gym: get(gymAtom),
         level: get(readOnlyGymLevelAtom),
         x: Math.round(params.x),

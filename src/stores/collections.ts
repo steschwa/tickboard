@@ -1,4 +1,5 @@
 import type { Collection } from "@/lib/collection"
+import { getRandomId } from "@/lib/random"
 import { createLocalStorageKey } from "@/lib/storage"
 import { atom } from "jotai"
 import { createJSONStorage } from "jotai/utils"
@@ -40,9 +41,9 @@ export const selectedCollectionAtom = atom(
     },
 )
 
-export const addCollectionAtom = atom(null, (get, set, name: string) => {
+export const addCollectionAtom = atom(null, (_, set, name: string) => {
     const collection: Collection = {
-        id: get(collectionsAtom).length.toString(),
+        id: getRandomId(),
         name,
         createdAt: new Date(),
     }
