@@ -92,7 +92,7 @@ export function GymMarker(props: GymMarkerProps) {
 
 export type GymMarkerVariant = "prominent" | "light"
 
-const GYM_MARKER_RADIUS = 20
+const GYM_MARKER_RADIUS = 25
 
 function getFillClasses(marker: Marker): string {
     switch (marker.level) {
