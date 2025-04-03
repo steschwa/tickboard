@@ -17,7 +17,7 @@ import { gymAtom } from "@/stores/gym"
 import { useAtomValue } from "jotai"
 
 export function useRenderActiveGym(): readonly [
-    element: React.ElementType<React.ComponentPropsWithoutRef<"svg">>,
+    element: React.ElementType<React.ComponentPropsWithRef<"svg">>,
     viewboxWidth: number,
     viewboxHeight: number,
 ] {

@@ -1,5 +1,5 @@
 export function BlocHuetteHaupthalle(
-    props: React.ComponentPropsWithoutRef<"svg">,
+    props: React.ComponentPropsWithRef<"svg">,
 ) {
     return (
         <svg
