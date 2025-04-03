@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
-import { useLayoutEffect } from "react"
+import { useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
 import {
     GymMarker,
@@ -11,9 +11,12 @@ import { Toolbar } from "./components/toolbar/Toolbar"
 import { useOpenState } from "./hooks/useOpenState"
 import { useRenderActiveGym } from "./hooks/useRenderActiveGym"
 import type { Marker } from "./lib/marker"
+import { shareSvg } from "./lib/svg"
 import { addMarkerAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
+    const activeGymRef = useRef<ActiveGymRef>(null)
+
     useLayoutEffect(() => {
         const originalHeight = getViewportHeight()
 
@@ -54,25 +57,52 @@ export function App() {
         }
     }, [])
 
+    const handleShare = async () => {
+        const gymElement = activeGymRef.current?.getGym()
+        if (!gymElement) {
+            return
+        }
+
+        try {
+            await shareSvg(gymElement)
+        } catch (err) {
+            console.error("failed to share svg")
+            console.error(err)
+        }
+    }
+
     return (
         <div className="h-dvh flex flex-col">
             <Header />
-            <Toolbar />
+            <Toolbar onShare={handleShare} />
 
             <div className="flex-1 p-4 flex justify-center items-center overflow-hidden relative">
-                <ActiveGym />
+                <ActiveGym ref={activeGymRef} />
             </div>
         </div>
     )
 }
 
-function ActiveGym() {
-    const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
+type ActiveGymRef = {
+    getGym: () => SVGSVGElement | undefined
+}
 
+type ActiveGymProps = {
+    ref?: React.Ref<ActiveGymRef>
+}
+
+function ActiveGym(props: ActiveGymProps) {
+    const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
     const addMarker = useSetAtom(addMarkerAtom)
 
     const editState = useOpenState<Marker["id"]>()
+    const gymRef = useRef<SVGSVGElement>(null)
+
     const [ActiveGymComp] = useRenderActiveGym()
+
+    useImperativeHandle(props.ref, () => ({
+        getGym: () => gymRef.current ?? undefined,
+    }))
 
     const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
         const svg = event.currentTarget
@@ -96,6 +126,7 @@ function ActiveGym() {
     return (
         <>
             <ActiveGymComp
+                ref={gymRef}
                 onClick={handleClick}
                 className="max-w-full max-h-full overflow-visible">
                 {markers.map((marker, index) => {
