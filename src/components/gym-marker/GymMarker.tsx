@@ -1,5 +1,4 @@
 import type { Marker } from "@/lib/marker"
-import clsx from "clsx"
 
 type GymMarkerProps = {
     marker: Marker
@@ -43,10 +42,8 @@ export function GymMarker(props: GymMarkerProps) {
                 cy={props.marker.y}
                 r={GYM_MARKER_RADIUS}
                 opacity={getCircleOpacity(variant)}
-                className={clsx(
-                    getFillClasses(props.marker),
-                    getStrokeClasses(props.marker),
-                )}
+                fill={getFillColor(props.marker)}
+                stroke={getStrokeColor(props.marker)}
             />
 
             {props.selected && (
@@ -55,10 +52,8 @@ export function GymMarker(props: GymMarkerProps) {
                     cy={props.marker.y}
                     r={GYM_MARKER_RADIUS}
                     strokeWidth={8}
-                    className={clsx(
-                        "fill-transparent",
-                        getStrokeClasses(props.marker),
-                    )}>
+                    stroke={getStrokeColor(props.marker)}
+                    fill="transparent">
                     <animate
                         attributeName="r"
                         from={GYM_MARKER_RADIUS * 1.2}
@@ -83,7 +78,8 @@ export function GymMarker(props: GymMarkerProps) {
                 y={props.marker.y}
                 textAnchor="middle"
                 alignmentBaseline="central"
-                className={clsx("text-lg", getTextFillClasses(props.marker))}>
+                fontSize={18}
+                fill={getTextFillColor(props.marker)}>
                 {props.children}
             </text>
         </g>
@@ -94,60 +90,60 @@ export type GymMarkerVariant = "prominent" | "light"
 
 const GYM_MARKER_RADIUS = 25
 
-function getFillClasses(marker: Marker): string {
+function getFillColor(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
-            return "fill-yellow-300"
+            return "#ffdb1d"
         case "BLOC_HUETTE_GRUEN":
-            return "fill-lime-500"
+            return "#71c800"
         case "BLOC_HUETTE_ORANGE":
-            return "fill-orange-300"
+            return "#ff7e08"
         case "BLOC_HUETTE_WEISS":
-            return "fill-white"
+            return "#ffffff"
         case "BLOC_HUETTE_BLAU":
-            return "fill-blue-700"
+            return "#143ee2"
         case "BLOC_HUETTE_ROT":
-            return "fill-red-600"
+            return "#e4000e"
         case "BLOC_HUETTE_SCHWARZ":
-            return "fill-gray-800"
+            return "#1c2532"
     }
 }
 
-function getStrokeClasses(marker: Marker): string {
+function getStrokeColor(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
-            return "stroke-yellow-300"
+            return "#ffdb1d"
         case "BLOC_HUETTE_GRUEN":
-            return "stroke-lime-500"
+            return "#71c800"
         case "BLOC_HUETTE_ORANGE":
-            return "stroke-orange-300"
+            return "#ff7e08"
         case "BLOC_HUETTE_WEISS":
-            return "stroke-gray-300"
+            return "#cacfd7"
         case "BLOC_HUETTE_BLAU":
-            return "stroke-blue-700"
+            return "#143ee2"
         case "BLOC_HUETTE_ROT":
-            return "stroke-red-500"
+            return "#e4000e"
         case "BLOC_HUETTE_SCHWARZ":
-            return "stroke-gray-800"
+            return "#1c2532"
     }
 }
 
-function getTextFillClasses(marker: Marker): string {
+function getTextFillColor(marker: Marker): string {
     switch (marker.level) {
         case "BLOC_HUETTE_GELB":
-            return "fill-yellow-950"
+            return "#3b1d09"
         case "BLOC_HUETTE_GRUEN":
-            return "fill-lime-950"
+            return "#182907"
         case "BLOC_HUETTE_ORANGE":
-            return "fill-orange-950"
+            return "#3c140a"
         case "BLOC_HUETTE_WEISS":
-            return "text-gray-900"
+            return "#070b13"
         case "BLOC_HUETTE_BLAU":
-            return "fill-blue-50"
+            return "#ecf4ff"
         case "BLOC_HUETTE_ROT":
-            return "fill-red-50"
+            return "#fef0f0"
         case "BLOC_HUETTE_SCHWARZ":
-            return "fill-gray-50"
+            return "#f8f9fb"
     }
 }
 
