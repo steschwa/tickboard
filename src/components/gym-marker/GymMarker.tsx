@@ -27,7 +27,6 @@ export function GymMarker(props: GymMarkerProps) {
 
     const handleClick = (event: React.MouseEvent) => {
         event.stopPropagation()
-
         props.onSelect?.()
     }
 

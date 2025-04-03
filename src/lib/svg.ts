@@ -39,6 +39,10 @@ function imageToCanvas(image: HTMLImageElement): Promise<HTMLCanvasElement> {
             canvas.style.height = `${image.height}px`
 
             ctx.scale(scale, scale)
+
+            ctx.fillStyle = "white"
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
+
             ctx.drawImage(image, 0, 0)
 
             resolve(canvas)
