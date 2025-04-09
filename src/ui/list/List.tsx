@@ -2,7 +2,6 @@ import { Children, useState } from "react"
 import { ItemContext } from "../item/Item.context"
 import "./list.css"
 import { Button } from "../button/Button"
-import type { ItemVariant } from "../item/Item"
 
 type ListProps = {
     title?: React.ReactNode
@@ -11,7 +10,11 @@ type ListProps = {
 }
 
 export function List(props: ListProps) {
-    const [itemVariant, setItemVariant] = useState<ItemVariant>("selection")
+    const [showItemActions, setShowItemActions] = useState(false)
+
+    const handleToggleShowItemActions = () => {
+        setShowItemActions(prev => !prev)
+    }
 
     return (
         <div className="list">
@@ -24,32 +27,17 @@ export function List(props: ListProps) {
 
                 {props.editable && (
                     <div className="ml-auto">
-                        {itemVariant === "selection" && (
-                            <Button
-                                size="small"
-                                variant="seconary"
-                                onClick={() => {
-                                    setItemVariant("management")
-                                }}>
-                                Bearbeiten
-                            </Button>
-                        )}
-
-                        {itemVariant === "management" && (
-                            <Button
-                                size="small"
-                                variant="seconary"
-                                onClick={() => {
-                                    setItemVariant("selection")
-                                }}>
-                                Fertig
-                            </Button>
-                        )}
+                        <Button
+                            size="small"
+                            variant="seconary"
+                            onClick={handleToggleShowItemActions}>
+                            {showItemActions ? "Fertig" : "Bearbeiten"}
+                        </Button>
                     </div>
                 )}
             </Header>
 
-            <ItemContext.Provider value={{ variant: itemVariant }}>
+            <ItemContext.Provider value={{ showActions: showItemActions }}>
                 <div className="flex flex-col gap-y-2">{props.children}</div>
             </ItemContext.Provider>
         </div>
