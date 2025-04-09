@@ -86,12 +86,14 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                     <Radio value="done">DONE</Radio>
                 </RadioGroup>
 
-                <div className="flex items-center justify-between mt-6 text-sm font-medium text-gray-900">
+                <div className="h-px my-6 -mx-4 bg-gray-100" />
+
+                <Button
+                    className="w-full"
+                    variant="destructive"
+                    onClick={handleDelete}>
                     Markierung löschen
-                    <Button variant="destructive" onClick={handleDelete}>
-                        Entfernen
-                    </Button>
-                </div>
+                </Button>
             </Dialog.Content>
         </Dialog>
     )
