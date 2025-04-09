@@ -95,7 +95,6 @@ function Item(props: ItemProps) {
     return (
         <ItemPrimitive
             {...restProps}
-            variant="selection"
             selected={selected}
             onSelect={() => {
                 onValueChange(value)
