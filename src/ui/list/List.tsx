@@ -52,5 +52,5 @@ function Header(props: HeaderProps) {
         return null
     }
 
-    return <div className="flex items-center mb-3">{props.children}</div>
+    return <div className="flex items-center mb-2">{props.children}</div>
 }

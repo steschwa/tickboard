@@ -29,8 +29,8 @@ export function Button(props: ButtonProps) {
                         variant === "destructive",
                 },
                 {
-                    "h-6 px-2 text-xs": size === "small",
-                    "h-8 px-3 text-sm": size === "normal",
+                    "h-6 px-2 text-sm": size === "small",
+                    "h-8 px-3 text-base": size === "normal",
                 },
                 restProps.className,
             )}

@@ -36,7 +36,7 @@ export function Item(props: ItemProps) {
                 )}
                 onClick={mergeEventListeners(handleSelect, restProps.onClick)}
                 className={clsx(
-                    "flex-1 flex items-center h-10 px-4 rounded-xl border text-sm font-normal overflow-hidden",
+                    "flex-1 flex items-center h-12 px-4 rounded-xl border text-base font-normal overflow-hidden",
                     {
                         "bg-white text-gray-900 border-gray-100": !selected,
                         "bg-gray-800 text-white border-gray-900": selected,

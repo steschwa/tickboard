@@ -64,7 +64,7 @@ function Trigger(props: TriggerProps) {
     return (
         <DialogPrimitive.Trigger className="px-3 flex items-center gap-x-4 justify-between h-8 border border-gray-200 rounded-lg focus:outline-none">
             <span
-                className={clsx("text-sm font-normal", {
+                className={clsx("text-base font-normal", {
                     "text-gray-500": showPlaceholder,
                     "text-gray-900": !showPlaceholder,
                 })}>

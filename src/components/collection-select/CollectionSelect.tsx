@@ -50,7 +50,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                     <Item
                         selected={!selectedCollection}
                         onSelect={handleNoCollectionSelect}>
-                        Ohne Sammlung
+                        <span className="text-gray-600">Ohne Sammlung</span>
                     </Item>
                 </List>
 
@@ -61,7 +61,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                         <Item>
                             <div className="flex items-center gap-x-3">
                                 <PlusIcon className="text-gray-500 size-5" />
-                                <span className="text-gray-900">
+                                <span className="text-gray-600">
                                     Neue Sammlung erstellen
                                 </span>
                             </div>

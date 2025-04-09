@@ -30,7 +30,7 @@ export function RadioGroup(props: RadioGroupProps) {
             {props.title && (
                 <h4
                     id={labeledById}
-                    className="mb-1 text-sm font-medium text-gray-900">
+                    className="mb-1 text-base font-medium text-gray-900">
                     {props.title}
                 </h4>
             )}
@@ -50,7 +50,7 @@ export function Radio(props: RadioProps) {
     return (
         <RadioPrimitive.Root
             value={props.value}
-            className="flex-1 flex items-center justify-center text-sm font-medium h-8 outline-none rounded-md data-[checked]:bg-gray-800 data-[checked]:text-white">
+            className="flex-1 flex items-center justify-center text-base font-medium h-8 outline-none rounded-md data-[checked]:bg-gray-800 data-[checked]:text-white">
             {props.children}
         </RadioPrimitive.Root>
     )

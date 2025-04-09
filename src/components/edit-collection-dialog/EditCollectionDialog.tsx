@@ -2,6 +2,7 @@ import type { Collection } from "@/lib/collection"
 import { updateCollectionAtom } from "@/stores/collections"
 import { Button } from "@/ui/button/Button"
 import { Dialog } from "@/ui/dialog/Dialog"
+import { Field } from "@/ui/field/Field"
 import { Input } from "@/ui/input/Input"
 import { useSetAtom } from "jotai"
 import { useState } from "react"
@@ -47,15 +48,17 @@ export function EditCollectionDialog(props: EditCollectionDialogProps) {
             <Dialog.Trigger render={props.children} />
             <Dialog.Content title="Neue Sammlung erstellen">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
-                    <Input
-                        autoFocus
-                        placeholder="Bezeichnung"
-                        required
-                        value={name}
-                        onChange={event => {
-                            setName(event.currentTarget.value)
-                        }}
-                    />
+                    <Field label="Bezeichnung">
+                        <Input
+                            autoFocus
+                            placeholder="Bezeichnung"
+                            required
+                            value={name}
+                            onChange={event => {
+                                setName(event.currentTarget.value)
+                            }}
+                        />
+                    </Field>
                     <Button type="submit" variant="primary">
                         Speichern
                     </Button>
