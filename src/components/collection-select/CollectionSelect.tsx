@@ -50,7 +50,7 @@ export function CollectionSelect(props: CollectionSelectProps) {
                     <Item
                         selected={!selectedCollection}
                         onSelect={handleNoCollectionSelect}>
-                        <span className="text-gray-600">Ohne Sammlung</span>
+                        Ohne Sammlung
                     </Item>
                 </List>
 
