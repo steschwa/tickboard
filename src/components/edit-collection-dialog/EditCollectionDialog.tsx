@@ -46,7 +46,7 @@ export function EditCollectionDialog(props: EditCollectionDialogProps) {
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <Dialog.Trigger render={props.children} />
-            <Dialog.Content title="Neue Sammlung erstellen">
+            <Dialog.Content title="Sammlung bearbeiten">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-6">
                     <Field label="Bezeichnung">
                         <Input

@@ -10,7 +10,7 @@ export function Input(props: InputProps) {
             className={clsx(
                 "h-10 px-3 rounded-lg bg-gray-100 text-gray-900 text-base border border-gray-200",
                 "placeholder:text-gray-500",
-                "focus:outline-2 focus:border-gray-500 outline-gray-600/75",
+                "focus:outline-2 focus:border-gray-400 outline-gray-600/50",
             )}
         />
     )
