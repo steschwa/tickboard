@@ -1,5 +1,8 @@
 import type { Collection } from "@/lib/collection"
-import { updateCollectionAtom } from "@/stores/collections"
+import {
+    deleteCollectionAtom,
+    updateCollectionAtom,
+} from "@/stores/collections"
 import { Button } from "@/ui/button/Button"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { Field } from "@/ui/field/Field"
@@ -14,6 +17,7 @@ type EditCollectionDialogProps = {
 
 export function EditCollectionDialog(props: EditCollectionDialogProps) {
     const updateCollection = useSetAtom(updateCollectionAtom)
+    const deleteCollection = useSetAtom(deleteCollectionAtom)
 
     const [open, setOpen] = useState(false)
     const [name, setName] = useState("")
@@ -43,6 +47,14 @@ export function EditCollectionDialog(props: EditCollectionDialogProps) {
         setOpen(false)
     }
 
+    const handleDelete = () => {
+        if (!props.collection) {
+            return
+        }
+
+        deleteCollection(props.collection.id)
+    }
+
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <Dialog.Trigger render={props.children} />
@@ -63,6 +75,15 @@ export function EditCollectionDialog(props: EditCollectionDialogProps) {
                         Speichern
                     </Button>
                 </form>
+
+                <div className="h-px my-6 -mx-4 bg-gray-100" />
+
+                <Button
+                    className="w-full"
+                    variant="destructive"
+                    onClick={handleDelete}>
+                    Sammlung löschen
+                </Button>
             </Dialog.Content>
         </Dialog>
     )
