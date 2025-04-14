@@ -7,9 +7,12 @@ function svgToImage(svg: SVGSVGElement): HTMLImageElement {
     copy.setAttribute("width", `${width}px`)
     copy.setAttribute("height", `${height}px`)
 
+    const vb = copy.viewBox.baseVal
+    copy.setAttribute("viewBox", `-50 -50 ${vb.width + 100} ${vb.height + 100}`)
+
     const xml = new XMLSerializer().serializeToString(copy)
     const svgBlob = new Blob([xml], {
-        type: "image/svg+xml;charset=utf-8",
+        type: "image/svg+xml",
     })
 
     const url = URL.createObjectURL(svgBlob)
