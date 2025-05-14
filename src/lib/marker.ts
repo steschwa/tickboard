@@ -7,6 +7,7 @@ export type Marker = {
     x: number
     y: number
     status: MarkerStatus
+    workspace: number
 }
 
 type MarkerStatus = "done" | "todo"
