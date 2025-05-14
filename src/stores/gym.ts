@@ -20,12 +20,12 @@ export const gymAtom = atom(
         set(_gymAtom, gym)
 
         const permittedLevels = getLevelsByGym(gym)
-        const currentLevel = get(readOnlyGymLevelAtom)
+        const currentLevel = get(gymLevelAtom)
         if (permittedLevels.has(currentLevel)) {
             return
         }
 
-        set(writeOnlyGymLevelAtom, getDefaultLevelByGym(gym))
+        set(gymLevelAtom, getDefaultLevelByGym(gym))
     },
 )
 
@@ -38,38 +38,39 @@ const _gymConfigAtom = atomWithStorage<GymConfig>(
     },
 )
 
-export const readOnlyGymLevelAtom = atom(get => {
-    const gym = get(_gymAtom)
+export const gymLevelAtom = atom(
+    get => {
+        const gym = get(_gymAtom)
 
-    switch (gym) {
-        case "BLOC_HUETTE_HAUPTHALLE":
-        case "BLOC_HUETTE_AUSSENBEREICH":
-        case "BLOC_HUETTE_NEUEHALLE":
-            return get(_gymConfigAtom).blocHuette.level
-    }
-})
-
-export const writeOnlyGymLevelAtom = atom(null, (get, set, level: GymLevel) => {
-    const gym = get(_gymAtom)
-
-    const permittedLevels = getLevelsByGym(gym)
-    if (!permittedLevels.has(level)) {
-        return
-    }
-
-    set(_gymConfigAtom, prev => {
-        const updatedConfig = { ...prev }
         switch (gym) {
             case "BLOC_HUETTE_HAUPTHALLE":
             case "BLOC_HUETTE_AUSSENBEREICH":
             case "BLOC_HUETTE_NEUEHALLE":
-                updatedConfig.blocHuette.level = level
-                break
+                return get(_gymConfigAtom).blocHuette.level
+        }
+    },
+    (get, set, level: GymLevel) => {
+        const gym = get(_gymAtom)
+
+        const permittedLevels = getLevelsByGym(gym)
+        if (!permittedLevels.has(level)) {
+            return
         }
 
-        return updatedConfig
-    })
-})
+        set(_gymConfigAtom, prev => {
+            const updatedConfig = { ...prev }
+            switch (gym) {
+                case "BLOC_HUETTE_HAUPTHALLE":
+                case "BLOC_HUETTE_AUSSENBEREICH":
+                case "BLOC_HUETTE_NEUEHALLE":
+                    updatedConfig.blocHuette.level = level
+                    break
+            }
+
+            return updatedConfig
+        })
+    },
+)
 
 type GymConfig = {
     blocHuette: {

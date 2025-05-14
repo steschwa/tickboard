@@ -1,6 +1,6 @@
 import { useRenderActiveGym } from "@/hooks/useRenderActiveGym"
 import type { Marker } from "@/lib/marker"
-import { markersAtom, readOnlyGymLevelMarkersAtom } from "@/stores/markers"
+import { markersAtom, gymLevelMarkersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { useAtom, useAtomValue } from "jotai"
 import { GymMarker } from "../gym-marker/GymMarker"
@@ -17,7 +17,7 @@ type EditMarkerDialogProps = {
 
 export function EditMarkerDialog(props: EditMarkerDialogProps) {
     const [allMarkers, setMarkers] = useAtom(markersAtom)
-    const activeGymMarkers = useAtomValue(readOnlyGymLevelMarkersAtom)
+    const activeGymMarkers = useAtomValue(gymLevelMarkersAtom)
 
     const [ActiveGym, , viewboxHeight] = useRenderActiveGym()
 

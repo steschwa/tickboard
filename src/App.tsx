@@ -12,7 +12,7 @@ import { useOpenState } from "./hooks/useOpenState"
 import { useRenderActiveGym } from "./hooks/useRenderActiveGym"
 import type { Marker } from "./lib/marker"
 import { shareSvg } from "./lib/svg"
-import { addMarkerAtom, readOnlyGymLevelMarkersAtom } from "./stores/markers"
+import { addMarkerAtom, gymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
     const activeGymRef = useRef<ActiveGymRef>(null)
@@ -92,7 +92,7 @@ type ActiveGymProps = {
 }
 
 function ActiveGym(props: ActiveGymProps) {
-    const markers = useAtomValue(readOnlyGymLevelMarkersAtom)
+    const markers = useAtomValue(gymLevelMarkersAtom)
     const addMarker = useSetAtom(addMarkerAtom)
 
     const editState = useOpenState<Marker["id"]>()
