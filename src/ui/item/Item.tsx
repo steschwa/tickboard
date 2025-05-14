@@ -1,6 +1,6 @@
 import { mergeEventListeners } from "@/lib/events"
 import clsx from "clsx"
-import { CircleCheckIcon, SettingsIcon } from "lucide-react"
+import { SettingsIcon } from "lucide-react"
 import { useContext } from "react"
 import { ItemContext } from "./Item.context"
 
@@ -46,13 +46,6 @@ export function Item(props: ItemProps) {
                     restProps.className,
                 )}>
                 <div className="flex-1">{restProps.children}</div>
-
-                <CircleCheckIcon
-                    className={clsx(
-                        "size-5",
-                        selected ? "inline-block" : "hidden",
-                    )}
-                />
             </div>
 
             {showActions && actions}

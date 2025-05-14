@@ -1,5 +1,7 @@
 import { type BlocHuetteLevel, type GymLevel, getLevelsByGym } from "@/lib/gym"
 import { gymAtom, gymLevelAtom } from "@/stores/gym"
+import { markersAtom } from "@/stores/markers"
+import { workspaceAtom } from "@/stores/workspaces"
 import { Select } from "@/ui/select/Select"
 import clsx from "clsx"
 import { useAtom } from "jotai"
@@ -49,17 +51,56 @@ function LevelItem(props: LevelItemProps) {
     }
 }
 
+type ItemProps = {
+    value: GymLevel
+
+    level?: React.ReactNode
+    text: React.ReactNode
+}
+function Item(props: ItemProps) {
+    const activeGym = useAtomValue(gymAtom)
+    const activeWorkspace = useAtomValue(workspaceAtom)
+
+    const allMarkers = useAtomValue(markersAtom)
+
+    const markersCount = allMarkers.filter(marker => {
+        return (
+            marker.gym === activeGym &&
+            marker.workspace === activeWorkspace &&
+            marker.level === props.value
+        )
+    }).length
+
+    return (
+        <Select.Item value={props.value}>
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-x-3">
+                    {props.level}
+                    <span>{props.text}</span>
+                </div>
+
+                <span
+                    className={clsx(
+                        "text-xs rounded-full bg-gray-100 text-gray-600 inline-flex items-center justify-center size-6",
+                        "group-data-[selected=true]:bg-gray-600 group-data-[selected=true]:text-white",
+                    )}>
+                    {markersCount}
+                </span>
+            </div>
+        </Select.Item>
+    )
+}
+
 type BlocHuetteItemProps = {
     level: BlocHuetteLevel
 }
 function BlocHuetteItem(props: BlocHuetteItemProps) {
     return (
-        <Select.Item value={props.level}>
-            <div className="flex items-center gap-x-3">
-                <BlocHuetteDot level={props.level} />
-                <span>{formatBlocHuetteLevelText(props.level)}</span>
-            </div>
-        </Select.Item>
+        <Item
+            value={props.level}
+            level={<BlocHuetteDot level={props.level} />}
+            text={formatBlocHuetteLevelText(props.level)}
+        />
     )
 }
 
