@@ -12,8 +12,11 @@ export function Header() {
 
     return (
         <header className="border-b border-gray-100 flex items-center justify-between px-4 py-2">
-            <h1 className="text-gray-900 font-semibold text-base">
-                {formatGym(gym)}
+            <h1 className="flex flex-col">
+                <span className="text-gray-600 text-xs">{formatGym(gym)}</span>
+                <span className="text-gray-900 text-base font-semibold">
+                    {formatArea(gym)}
+                </span>
             </h1>
 
             <div className="flex justify-end gap-x-4 items-center">
@@ -32,11 +35,21 @@ export function Header() {
 function formatGym(gym: Gym): string {
     switch (gym) {
         case "BLOC_HUETTE_HAUPTHALLE":
-            return "Bloc-Hütte: Haupthalle"
+            return "Bloc-Hütte"
         case "BLOC_HUETTE_AUSSENBEREICH":
-            return "Bloc-Hütte: Aussenbereich"
+            return "Bloc-Hütte"
         case "BLOC_HUETTE_NEUEHALLE":
-            return "Bloc-Hütte: Neue Halle"
+            return "Bloc-Hütte"
+    }
+}
+function formatArea(gym: Gym): string {
+    switch (gym) {
+        case "BLOC_HUETTE_HAUPTHALLE":
+            return "Haupthalle"
+        case "BLOC_HUETTE_AUSSENBEREICH":
+            return "Aussenbereich"
+        case "BLOC_HUETTE_NEUEHALLE":
+            return "Neue Halle"
     }
 }
 
