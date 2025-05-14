@@ -1,4 +1,3 @@
-import type { Collection } from "./collection"
 import type { Gym, GymLevel } from "./gym"
 
 export type Marker = {
@@ -8,7 +7,6 @@ export type Marker = {
     x: number
     y: number
     status: MarkerStatus
-    collectionId: Collection["id"] | null
 }
 
 type MarkerStatus = "done" | "todo"

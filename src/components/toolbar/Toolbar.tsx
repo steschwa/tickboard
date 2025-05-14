@@ -1,7 +1,6 @@
 import { GymLevelSelect } from "@/components/gym-level-select/GymLevelSelect"
 import { IconButton } from "@/ui/icon-button/IconButton"
-import { LayersIcon, ShareIcon } from "lucide-react"
-import { CollectionSelect } from "../collection-select/CollectionSelect"
+import { ShareIcon } from "lucide-react"
 
 type ToolbarProps = {
     onShare: () => void
@@ -16,11 +15,6 @@ export function Toolbar(props: ToolbarProps) {
                 <IconButton onClick={props.onShare}>
                     <ShareIcon />
                 </IconButton>
-                <CollectionSelect>
-                    <IconButton>
-                        <LayersIcon />
-                    </IconButton>
-                </CollectionSelect>
             </div>
         </div>
     )
