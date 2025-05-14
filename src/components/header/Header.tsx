@@ -81,7 +81,7 @@ function WorkspaceButton(props: WorkspaceButtonProps) {
                 "focus:outline-none",
                 {
                     "bg-gray-800 text-white border-gray-900": isActive,
-                    "bg-gray-50 text-gray-600 border-gray-100": !isActive,
+                    "bg-gray-100 text-gray-600 border-gray-100": !isActive,
                 },
             )}>
             {props.workspace}
