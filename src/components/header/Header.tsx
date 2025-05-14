@@ -77,7 +77,7 @@ function WorkspaceButton(props: WorkspaceButtonProps) {
                 setActiveWorkspace(props.workspace)
             }}
             className={clsx(
-                "px-3 h-8 rounded-lg text-base text-center border select-none",
+                "px-3 h-8 rounded-lg text-sm text-center border select-none",
                 "focus:outline-none",
                 {
                     "bg-gray-800 text-white border-gray-900": isActive,
