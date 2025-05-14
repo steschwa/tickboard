@@ -1,3 +1,3 @@
 import { atom } from "jotai"
 
-export const activeWorkspaceAtom = atom(1)
+export const workspaceAtom = atom(1)

@@ -1,7 +1,7 @@
 import { GymSelect } from "@/components/gym-select/GymSelect"
 import type { Gym } from "@/lib/gym"
 import { gymAtom } from "@/stores/gym"
-import { activeWorkspaceAtom } from "@/stores/workspaces"
+import { workspaceAtom } from "@/stores/workspaces"
 import { IconButton } from "@/ui/icon-button/IconButton"
 import clsx from "clsx"
 import { useAtom, useAtomValue } from "jotai"
@@ -66,15 +66,15 @@ type WorkspaceButtonProps = {
     workspace: number
 }
 function WorkspaceButton(props: WorkspaceButtonProps) {
-    const [activeWorkspace, setActiveWorkspace] = useAtom(activeWorkspaceAtom)
+    const [workspace, setWorkspace] = useAtom(workspaceAtom)
 
-    const isActive = props.workspace === activeWorkspace
+    const isActive = props.workspace === workspace
 
     return (
         <button
             type="button"
             onClick={() => {
-                setActiveWorkspace(props.workspace)
+                setWorkspace(props.workspace)
             }}
             className={clsx(
                 "px-3 h-8 rounded-lg text-sm text-center border select-none",
