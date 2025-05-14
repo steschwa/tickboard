@@ -79,11 +79,10 @@ function Trigger(props: TriggerProps) {
 
 type ItemProps = React.ComponentPropsWithoutRef<"div"> & {
     value: string
-    keepOpen?: boolean
     children: React.ReactNode
 }
 function Item(props: ItemProps) {
-    const { value, keepOpen = false, children, ...restProps } = props
+    const { value, children, ...restProps } = props
     const {
         value: selectedValue,
         onValueChange,
@@ -98,9 +97,7 @@ function Item(props: ItemProps) {
             selected={selected}
             onSelect={() => {
                 onValueChange(value)
-                if (!keepOpen) {
-                    onOpenChange(false)
-                }
+                onOpenChange(false)
             }}>
             {children}
         </ItemPrimitive>
