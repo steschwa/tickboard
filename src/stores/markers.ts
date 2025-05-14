@@ -14,9 +14,14 @@ export const markersAtom = atomWithStorage<Marker[]>(
 export const gymLevelMarkersAtom = atom(get => {
     const gym = get(gymAtom)
     const level = get(gymLevelAtom)
+    const activeWorkspace = get(activeWorkspaceAtom)
 
     return get(markersAtom).filter(marker => {
-        return marker.gym === gym && marker.level === level
+        return (
+            marker.gym === gym &&
+            marker.level === level &&
+            marker.workspace === activeWorkspace
+        )
     })
 })
 
