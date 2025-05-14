@@ -60,7 +60,6 @@ type ItemProps = {
 function Item(props: ItemProps) {
     const activeGym = useAtomValue(gymAtom)
     const activeWorkspace = useAtomValue(workspaceAtom)
-
     const allMarkers = useAtomValue(markersAtom)
 
     const markersCount = allMarkers.filter(marker => {
