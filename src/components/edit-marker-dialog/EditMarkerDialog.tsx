@@ -1,6 +1,6 @@
 import { useRenderActiveGym } from "@/hooks/useRenderActiveGym"
 import type { Marker } from "@/lib/marker"
-import { markersAtom, gymLevelMarkersAtom } from "@/stores/markers"
+import { gymLevelMarkersAtom, markersAtom } from "@/stores/markers"
 import { Dialog } from "@/ui/dialog/Dialog"
 import { useAtom, useAtomValue } from "jotai"
 import { GymMarker } from "../gym-marker/GymMarker"
@@ -42,6 +42,7 @@ export function EditMarkerDialog(props: EditMarkerDialogProps) {
                 return { ...marker, status: parseStatus(value) }
             })
         })
+        props.onClose()
     }
 
     const activeGymStyles: React.CSSProperties & Record<string, unknown> = {}
