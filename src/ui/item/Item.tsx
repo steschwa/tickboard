@@ -27,7 +27,7 @@ export function Item(props: ItemProps) {
     }
 
     return (
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2" data-selected={selected}>
             <div
                 {...restProps}
                 onKeyDown={mergeEventListeners(
