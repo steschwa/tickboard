@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai"
 import { useSetAtom } from "jotai"
-import { useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { useImperativeHandle, useRef } from "react"
 import { EditMarkerDialog } from "./components/edit-marker-dialog/EditMarkerDialog"
 import {
     GymMarker,
@@ -16,46 +16,6 @@ import { addMarkerAtom, gymLevelMarkersAtom } from "./stores/markers"
 
 export function App() {
     const activeGymRef = useRef<ActiveGymRef>(null)
-
-    useLayoutEffect(() => {
-        const originalHeight = getViewportHeight()
-
-        const handleVResize = () => {
-            const height = getViewportHeight()
-            setDeviceBottomOffset(originalHeight - height)
-        }
-
-        const handleFocusOut = (event: FocusEvent) => {
-            if (!event.target) {
-                return
-            }
-
-            // `event.target` is the element losing focus
-            const element = event.target as HTMLElement
-            if (element instanceof HTMLInputElement) {
-                setDeviceBottomOffset(0)
-            }
-        }
-
-        // device virtual keyboard
-        window.visualViewport?.addEventListener("resize", handleVResize)
-
-        // WHY?
-        // after closing the virtual keyboard
-        // safari takes about ~1s to fire "resize" again.
-        // in the meantime this shows a floating dialog, which is not what i want
-        //
-        // HOW?
-        // listening for the "focusout" event (element losing focus), we handle
-        // dialogs that contain elements which are likely to
-        // have triggered the virtual keyboard
-        document.addEventListener("focusout", handleFocusOut)
-
-        return () => {
-            window.visualViewport?.removeEventListener("resize", handleVResize)
-            document.removeEventListener("focusout", handleFocusOut)
-        }
-    }, [])
 
     const handleShare = async () => {
         const gymElement = activeGymRef.current?.getGym()
@@ -160,12 +120,4 @@ function getGymMarkerVariant(status: Marker["status"]): GymMarkerVariant {
         case "todo":
             return "prominent"
     }
-}
-
-function getViewportHeight(): number {
-    return window.visualViewport?.height || window.innerHeight
-}
-
-function setDeviceBottomOffset(offset: number) {
-    document.body.style.setProperty("--vv-offset-bottom", `${offset}px`)
 }
