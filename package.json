@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "typecheck && vite build",
+        "build": "bun run typecheck && vite build",
         "format": "biome format --write",
         "lint": "biome lint --fix",
         "typecheck": "tsc --noEmit --project tsconfig.app.json"
