@@ -11,7 +11,7 @@
         "typecheck": "tsc --noEmit --project tsconfig.app.json"
     },
     "dependencies": {
-        "@base-ui-components/react": "^1.0.0-alpha.7",
+        "@base-ui-components/react": "^1.0.0-alpha.8",
         "clsx": "^2.1.1",
         "jotai": "^2.12.2",
         "lucide-react": "^0.482.0",
